@@ -27,6 +27,8 @@ It is a **skill-based agent package**:
 - `skill/veterinary-behaviorist/SKILL.md` tells Claude Code, Codex, or another compatible agent how to behave as an evidence-based veterinary behavior consult agent.
 - `scripts/search_corpus.py` lets that same agent search local veterinary behavior literature.
 - `literature/` and `scripts/fetch_oa.py` help build the local paper corpus.
+- Web search, when available, lets the agent compare the case against public
+  real-world reports after the scientific literature step.
 - Zotero MCP and PaperQA2 are optional add-ons.
 
 In plain terms: you install this repository as a skill, then your existing Claude Code/Codex session becomes the veterinary behaviorist agent when you explicitly call it.
@@ -36,13 +38,15 @@ In plain terms: you install this repository as a skill, then your existing Claud
 When you call the skill with a case or question, the final output is a **cited veterinary behavior consult**, usually structured like this:
 
 ```text
+Case summary confirmed with the user
 Bottom line
 Medical triage
 Most likely behavioral diagnosis and differentials
 Management and safety plan
 Behavior modification plan
 Long-term living strategy
-Evidence and citations
+Scientific evidence and citations
+Real-world reports and practical patterns
 Limitations and escalation thresholds
 ```
 
@@ -60,6 +64,7 @@ Example output shape:
 - gives immediate safety management steps;
 - proposes desensitization/counterconditioning and environmental changes;
 - cites retrieved papers by author/year plus DOI or PMID;
+- summarizes matching real-world reports when web access is available;
 - marks abstract-only evidence and uncertainty.
 
 ## What It Does
@@ -78,9 +83,11 @@ Default Native Agent Mode:
 
 1. The user explicitly calls `/veterinary-behaviorist`.
 2. Claude Code, Codex, or another compatible agent runtime loads `skill/veterinary-behaviorist/SKILL.md`.
-3. The current agent runs `scripts/search_corpus.py` to retrieve local evidence snippets.
-4. If Zotero MCP is configured, the current agent can also search the local Zotero library.
-5. The current agent writes the final answer using its own model and cites only retrieved sources.
+3. The current agent runs an intake gate: it asks for missing case facts and confirms the case summary before giving a full answer.
+4. The current agent runs `scripts/search_corpus.py` to retrieve local evidence snippets.
+5. If Zotero MCP is configured, the current agent can also search the local Zotero library.
+6. If web access is available, the current agent searches for matching real-world cases and outcome patterns.
+7. The current agent writes the final answer using its own model and cites only retrieved sources.
 
 Optional PaperQA2 mode:
 
@@ -106,7 +113,7 @@ use the veterinary behaviorist skill for this case
 consult the veterinary behaviorist agent
 ```
 
-After that, the current agent should read the skill instructions, run local retrieval commands, and answer with citations. The user does not call `search_corpus.py` directly unless they want to test retrieval by hand.
+After that, the current agent should read the skill instructions, ask any missing intake questions, confirm the case summary, run local retrieval commands, optionally search for real-world reports, and answer with citations. The user does not call `search_corpus.py` directly unless they want to test retrieval by hand.
 
 ## Do You Need Zotero?
 
@@ -319,18 +326,82 @@ python3 scripts/search_corpus.py "cat owner-directed aggression treatment" -n 10
 
 The current agent then uses its own model to produce the consult answer.
 
+## Intake Before Answering
+
+The agent should not produce a full behavioral diagnosis from a vague prompt.
+
+If the user says something like "my cat suddenly attacked me", the agent first asks for the minimum case context:
+
+- animal profile: age, sex/neuter status, indoor/outdoor, time in the home;
+- medical context: pain signs, appetite/drinking/litter changes, medications, recent illness, recent vet visit;
+- incident details: what happened before/during/after, target, body language, bite/scratch severity;
+- pattern: first episode or repeated, frequency, escalation, recovery time;
+- triggers and environment: window animals, petting, play, food, visitors, other pets, resource layout, recent changes;
+- household safety: children, vulnerable adults, other animals, ability to separate safely;
+- previous responses: what helped, what made it worse;
+- user goals and constraints.
+
+If the answer is incomplete, the agent asks follow-up questions instead of moving on. Once enough information is available, it summarizes the case and asks the user to confirm. Only after that confirmation does it retrieve evidence and write the full consult.
+
+Urgent safety or medical risks are handled immediately, before the rest of the intake.
+
+### Example conversation flow
+
+User:
+
+```text
+/veterinary-behaviorist
+My cat suddenly attacked me.
+```
+
+Agent:
+
+```text
+Before I can give a reliable behavior assessment, I need the case context. Please answer these first:
+1. Age, sex/neuter status, indoor/outdoor?
+2. What happened in the 5 minutes before the attack?
+3. Bite or scratch? Was skin broken?
+4. Any pain signs, appetite/litter changes, illness, or medication?
+5. First episode or repeated? Any recent household changes?
+```
+
+If the user answers only some questions, the agent asks for the missing critical facts. When enough context is present, it summarizes:
+
+```text
+Here is what I understand: ...
+Is this accurate, and is there anything important missing?
+```
+
+Only after the user confirms does the agent retrieve literature, optionally search real-world reports, and write the consult.
+
+## Real-World Web Corroboration
+
+Scientific evidence remains the primary source. When web access is available, the agent also searches for public real-world cases that resemble the user's situation.
+
+The goal is to understand implementation patterns:
+
+- what similar owners or clinicians tried;
+- what appeared to help;
+- what failed or escalated the problem;
+- whether the case truly matches the user's context.
+
+These reports are labeled as anecdotal. They must not override veterinary literature, medical triage, or safety rules. Unsafe advice from forums, such as punishment, dominance framing, or flooding, should be rejected.
+
 ## Behavior Contract for Current Agents
 
 When the skill is activated, the current agent should:
 
-1. Restate the case: species, age, sex/neuter status, behavior, triggers, timeline, and injury risk.
-2. Start with medical-first triage: pain, skin disease, urinary disease, endocrine disease, neurologic disease, medication effects, cognitive decline.
-3. Retrieve evidence with `scripts/search_corpus.py`.
-4. Use Zotero MCP if available and relevant.
-5. Classify aggression by motivation: fear/defensive, redirected, petting-induced, play, pain, territorial, predatory, or other supported categories.
-6. Provide management, environmental modification, behavior modification, safety thresholds, and referral triggers.
-7. Cite only retrieved evidence from local search, Zotero, or PaperQA2.
-8. State uncertainty when evidence is abstract-only, weak, extrapolated, or missing.
+1. Ask intake questions until the critical case context is available.
+2. Summarize the case and ask the user to confirm before a full answer.
+3. Start with medical-first triage: pain, skin disease, urinary disease, endocrine disease, neurologic disease, medication effects, cognitive decline.
+4. Retrieve scientific evidence with `scripts/search_corpus.py`.
+5. Use Zotero MCP if available and relevant.
+6. Use web search, when available, to find matching real-world cases and outcome patterns.
+7. Classify aggression by motivation: fear/defensive, redirected, petting-induced, play, pain, territorial, predatory, or other supported categories.
+8. Provide management, environmental modification, behavior modification, safety thresholds, and referral triggers.
+9. Cite only retrieved evidence from local search, Zotero, PaperQA2, or linked web sources.
+10. Keep scientific evidence and anecdotal real-world reports clearly separated.
+11. State uncertainty when evidence is abstract-only, weak, extrapolated, anecdotal, or missing.
 
 Suggested answer format:
 
@@ -340,7 +411,8 @@ Medical triage
 Most likely diagnosis and differentials
 Plan
 Long-term living strategy
-Evidence and citations
+Scientific evidence
+Real-world reports
 Limitations and escalation thresholds
 ```
 

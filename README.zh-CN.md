@@ -27,6 +27,7 @@
 - `skill/veterinary-behaviorist/SKILL.md` 告诉 Claude Code、Codex 或其他兼容 agent：被调用后要如何扮演一个循证兽医行为 consult agent。
 - `scripts/search_corpus.py` 让同一个 agent 检索本地兽医行为文献。
 - `literature/` 和 `scripts/fetch_oa.py` 用来生成本地 paper 语料。
+- 有 web access 时，agent 会在文献检索后搜索公开真实案例，用来对照实践经验。
 - Zotero MCP 和 PaperQA2 是可选增强。
 
 简单说：你把这个仓库安装成 skill。之后在 Claude Code/Codex 里显式调用它，你当前的 Claude Code/Codex 会临时变成这个兽医行为 agent。
@@ -36,13 +37,15 @@
 你用一个 case 或问题调用 skill 后，最后得到的是一份 **带引用的兽医行为 consult 报告**，通常包括：
 
 ```text
+已和用户确认过的 case summary
 结论
 医学优先分诊
 最可能的行为诊断和鉴别诊断
 管理和安全方案
 行为改变方案
 长期相处策略
-证据和引用
+科学文献证据和引用
+真实用户/临床案例经验
 局限和升级条件
 ```
 
@@ -60,6 +63,7 @@
 - 给出即时安全管理措施；
 - 给出 desensitization/counterconditioning 和环境调整方案；
 - 用作者年份 + DOI 或 PMID 引用检索到的文献；
+- 在有 web access 时，总结相似真实案例的实践经验；
 - 标明哪些证据只有摘要、哪些地方不确定。
 
 ## 它能做什么
@@ -78,9 +82,11 @@
 
 1. 用户显式调用 `/veterinary-behaviorist`。
 2. Claude Code、Codex 或其他兼容 agent 读取 `skill/veterinary-behaviorist/SKILL.md`。
-3. 当前 agent 运行 `scripts/search_corpus.py` 检索本地文献片段。
-4. 如果配置了 Zotero MCP，当前 agent 可以继续搜索本地 Zotero 文献库。
-5. 当前 agent 用自己的模型生成最终回答，并且只引用检索到的来源。
+3. 当前 agent 先执行 intake gate：追问缺失背景，并让用户确认 case summary。
+4. 当前 agent 运行 `scripts/search_corpus.py` 检索本地文献片段。
+5. 如果配置了 Zotero MCP，当前 agent 可以继续搜索本地 Zotero 文献库。
+6. 如果有 web access，当前 agent 搜索相似真实案例和结果模式。
+7. 当前 agent 用自己的模型生成最终回答，并且只引用检索到的来源。
 
 可选 PaperQA2 mode：
 
@@ -107,7 +113,7 @@ consult the veterinary behaviorist agent
 用兽医行为 skill 看一下这个 case
 ```
 
-调用后，当前 agent 会读取 skill 指令、运行本地检索命令，并用检索到的证据回答。用户不需要直接调用 `search_corpus.py`，除非只是想手动测试检索。
+调用后，当前 agent 会读取 skill 指令、追问缺失背景、确认 case summary、运行本地检索命令、可选搜索真实案例，并用检索到的证据回答。用户不需要直接调用 `search_corpus.py`，除非只是想手动测试检索。
 
 ## 必须安装 Zotero 吗？
 
@@ -321,18 +327,82 @@ python3 scripts/search_corpus.py "cat owner-directed aggression treatment" -n 10
 
 当前 agent 读取这些片段后，用自己的模型完成 consult 回答。
 
+## 回答前必须先 intake
+
+agent 不应该根据一句模糊描述直接给完整行为诊断。
+
+如果用户只说“我家猫突然攻击我了”，agent 应该先问清最小 case 背景：
+
+- 动物信息：年龄、性别/绝育、室内/室外、在家多久；
+- 医学背景：疼痛迹象、食欲/饮水/排泄变化、用药、近期疾病、近期兽医检查；
+- 事件细节：攻击前/中/后发生了什么、攻击对象、身体语言、咬伤/抓伤严重程度；
+- 模式：第一次还是反复发生、频率、是否升级、恢复需要多久；
+- 触发和环境：窗外动物、抚摸、玩耍、食物、访客、其他宠物、资源布局、近期变化；
+- 家庭安全：儿童、脆弱成年人、其他动物、是否能安全隔离；
+- 之前怎么处理：什么有用，什么让情况变糟；
+- 用户目标和现实限制。
+
+如果用户回答不完整，agent 要继续追问缺失信息，不能直接进入完整诊断和方案。信息足够后，agent 要复述 case summary 并让用户确认。确认后，才进入证据检索和完整 consult。
+
+如果存在紧急安全或医学风险，agent 先给即时安全分诊，再继续 intake。
+
+### 对话流程示例
+
+用户：
+
+```text
+/veterinary-behaviorist
+我家猫突然攻击我了。
+```
+
+Agent：
+
+```text
+在给出可靠判断前，我需要先确认 case 背景。请先回答这些问题：
+1. 猫的年龄、性别/绝育、室内/室外？
+2. 攻击前 5 分钟发生了什么？
+3. 是咬伤还是抓伤？有没有破皮？
+4. 最近有没有疼痛迹象、食欲/排泄变化、生病或用药？
+5. 第一次发生还是反复发生？家里最近有没有变化？
+```
+
+如果用户只回答了一部分，agent 会继续追问缺失的关键信息。信息足够后，agent 会先复述：
+
+```text
+我目前理解的情况是：……
+这个 summary 准确吗？还有没有重要信息遗漏？
+```
+
+只有用户确认后，agent 才会进入文献检索、可选真实案例搜索，并输出完整 consult。
+
+## 真实案例 Web 校验
+
+科学文献仍然是主要依据。有 web access 时，agent 还会搜索和用户情况相似的公开真实案例。
+
+这一步的目的不是用论坛替代论文，而是了解实践模式：
+
+- 类似主人或临床人员尝试过什么；
+- 什么看起来有帮助；
+- 什么无效或让问题升级；
+- 这些案例是否真的和用户的背景相似。
+
+这些内容必须标注为 anecdotal / 真实案例经验。它不能覆盖兽医文献、医学分诊和安全规则。论坛里的惩罚、支配论、强迫暴露等危险建议要明确拒绝。
+
 ## 给当前 Agent 的行为约定
 
 skill 被激活后，当前 agent 应该：
 
-1. 复述 case：物种、年龄、性别/绝育、行为、触发因素、时间线、伤害风险。
-2. 先做医学优先分诊：疼痛、皮肤病、泌尿系统疾病、内分泌疾病、神经问题、药物影响、认知退化。
-3. 用 `scripts/search_corpus.py` 检索证据。
-4. Zotero MCP 可用且相关时，继续使用 Zotero 搜索本地库。
-5. 按动机分类攻击：fear/defensive、redirected、petting-induced、play、pain、territorial、predatory 等。
-6. 给出管理、环境调整、行为改变、安全阈值和转诊条件。
-7. 只引用本地检索、Zotero 或 PaperQA2 返回的证据。
-8. 证据只有摘要、证据弱、来自外推或没有证据时，要明确说明不确定性。
+1. 先追问，直到关键 case 背景足够完整。
+2. 复述 case summary，并让用户确认后再进入完整回答。
+3. 先做医学优先分诊：疼痛、皮肤病、泌尿系统疾病、内分泌疾病、神经问题、药物影响、认知退化。
+4. 用 `scripts/search_corpus.py` 检索科学文献证据。
+5. Zotero MCP 可用且相关时，继续使用 Zotero 搜索本地库。
+6. 有 web access 时，搜索相似真实案例和结果模式。
+7. 按动机分类攻击：fear/defensive、redirected、petting-induced、play、pain、territorial、predatory 等。
+8. 给出管理、环境调整、行为改变、安全阈值和转诊条件。
+9. 只引用本地检索、Zotero、PaperQA2 或 linked web sources 返回的来源。
+10. 把科学证据和真实案例经验清楚分开。
+11. 证据只有摘要、证据弱、来自外推、属于 anecdotal 或没有证据时，要明确说明不确定性。
 
 推荐回答结构：
 
@@ -342,7 +412,8 @@ skill 被激活后，当前 agent 应该：
 最可能诊断和鉴别
 处理方案
 长期相处策略
-证据和引用
+科学文献证据
+真实案例经验
 局限和升级条件
 ```
 
