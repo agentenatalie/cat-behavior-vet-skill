@@ -1,0 +1,392 @@
+{
+  "queries": [
+    "\"Cats\"[Mesh] AND (stress[tiab] OR \"stress response\"[tiab] OR stressor[tiab] OR cortisol[tiab] OR fear[tiab] OR anxiety[tiab]) AND (\"Behavior, Animal\"[Mesh] OR behavi*[tiab])",
+    "\"Cats\"[Mesh] AND (stress[tiab] OR fear[tiab]) AND (veterinary[tiab] OR clinic[tiab] OR handling[tiab] OR restraint[tiab])",
+    "\"Cats\"[Mesh] AND aggress*[tiab] AND (human[tiab] OR owner[tiab] OR people[tiab] OR person[tiab] OR caretaker[tiab] OR handler[tiab] OR bite[tiab])",
+    "\"Cats\"[Mesh] AND (aggress*[tiab] OR \"agonistic behavior\"[tiab])"
+  ],
+  "source": "PubMed E-utilities",
+  "focus": "cat stress behaviour + aggression toward humans",
+  "retrieved": "2026-06-06",
+  "count": 63,
+  "records": [
+    {
+      "pmid": "39325772",
+      "title": "Hypoadrenocorticism in cats: a 40-year update",
+      "year": "2024",
+      "journal": "Journal of feline medicine and surgery"
+    },
+    {
+      "pmid": "26101238",
+      "title": "Stress in owned cats: behavioural changes and welfare implications",
+      "year": "2016",
+      "journal": "Journal of feline medicine and surgery"
+    },
+    {
+      "pmid": "33494777",
+      "title": "Behavioral biology of Toxoplasma gondii infection",
+      "year": "2021",
+      "journal": "Parasites & vectors"
+    },
+    {
+      "pmid": "37648610",
+      "title": "Veterinary Psychopharmacology",
+      "year": "2024",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "22720812",
+      "title": "Cognitive dysfunction syndrome: a disease of canine and feline brain aging",
+      "year": "2012",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "29099247",
+      "title": "Effects of a single preappointment dose of gabapentin on signs of stress in cats  during transportation and veterinary examination",
+      "year": "2017",
+      "journal": "Journal of the American Veterinary Medical Association"
+    },
+    {
+      "pmid": "18672154",
+      "title": "Feline fear and anxiety",
+      "year": "2008",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "40968477",
+      "title": "Cats and cannabinoids: past, present and future",
+      "year": "2025",
+      "journal": "Journal of feline medicine and surgery"
+    },
+    {
+      "pmid": "37734960",
+      "title": "Behavior Changes Associated with Metabolic Disease of Dogs and Cats",
+      "year": "2024",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "36745090",
+      "title": "Hair cortisol levels in cats with and without behavioural problems",
+      "year": "2023",
+      "journal": "Journal of feline medicine and surgery"
+    },
+    {
+      "pmid": "30798644",
+      "title": "Common feline problem behaviours: Owner-directed aggression",
+      "year": "2019",
+      "journal": "Journal of feline medicine and surgery"
+    },
+    {
+      "pmid": "29395299",
+      "title": "Desensitization and Counterconditioning: When and How?",
+      "year": "2018",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "30764",
+      "title": "Pharmacology of lorazepam",
+      "year": "1978",
+      "journal": "The Journal of clinical psychiatry"
+    },
+    {
+      "pmid": "21147470",
+      "title": "Understanding feline behavior and application for appropriate handling and  management",
+      "year": "2010",
+      "journal": "Topics in companion animal medicine"
+    },
+    {
+      "pmid": "37852882",
+      "title": "Skin Disease and Behavior Changes in the Cat",
+      "year": "2024",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "8723133",
+      "title": "Noradrenergic mechanisms in stress and anxiety: I. Preclinical studies",
+      "year": "1996",
+      "journal": "Synapse (New York, N.Y.)"
+    },
+    {
+      "pmid": "31980266",
+      "title": "Toxoplasmosis and behavioural changes",
+      "year": "2020",
+      "journal": "Journal francais d'ophtalmologie"
+    },
+    {
+      "pmid": "35722998",
+      "title": "Behavior and adoptability of hoarded cats admitted to an animal shelter",
+      "year": "2022",
+      "journal": "Journal of feline medicine and surgery"
+    },
+    {
+      "pmid": "37648609",
+      "title": "Cat Inappropriate Elimination and its Interaction with Physical Disease",
+      "year": "2024",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "29398100",
+      "title": "Vertical or Horizontal? Diagnosing and Treating Cats Who Urinate Outside the Box",
+      "year": "2018",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "33773649",
+      "title": "Nutritional Management of Behavior and Brain Disorders in Dogs and Cats",
+      "year": "2021",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "29429600",
+      "title": "Diagnosing Behavior Problems: A Guide for Practitioners",
+      "year": "2018",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "32538246",
+      "title": "Evaluation of whisker stress in cats",
+      "year": "2021",
+      "journal": "Journal of feline medicine and surgery"
+    },
+    {
+      "pmid": "36322402",
+      "title": "Happy cats: stress in cats and their carers associated with outpatient visits to  the clinic",
+      "year": "2022",
+      "journal": "Journal of feline medicine and surgery"
+    },
+    {
+      "pmid": "30888280",
+      "title": "Evidence-based paradigm shifts in veterinary behavioral medicine",
+      "year": "2019",
+      "journal": "Journal of the American Veterinary Medical Association"
+    },
+    {
+      "pmid": "39935081",
+      "title": "2025 iCatCare consensus guidelines on the diagnosis and management of lower  urinary tract diseases in cats",
+      "year": "2025",
+      "journal": "Journal of feline medicine and surgery"
+    },
+    {
+      "pmid": "34475580",
+      "title": "A review of pre-appointment medications to reduce fear and anxiety in dogs and  cats at veterinary visits",
+      "year": "2021",
+      "journal": "The Canadian veterinary journal = La revue veterinaire canadienne"
+    },
+    {
+      "pmid": "23422366",
+      "title": "AAFP and ISFM feline environmental needs guidelines",
+      "year": "2013",
+      "journal": "Journal of feline medicine and surgery"
+    },
+    {
+      "pmid": "36259500",
+      "title": "2022 AAFP/ISFM Cat Friendly Veterinary Interaction Guidelines: Approach and  Handling Techniques",
+      "year": "2022",
+      "journal": "Journal of feline medicine and surgery"
+    },
+    {
+      "pmid": "35775307",
+      "title": "2022 ISFM Consensus Guidelines on Management of the Inappetent Hospitalised Cat",
+      "year": "2022",
+      "journal": "Journal of feline medicine and surgery"
+    },
+    {
+      "pmid": "37722946",
+      "title": "Inflammation and Behavior Changes in Dogs and Cats",
+      "year": "2024",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "22612638",
+      "title": "Feline exocrine pancreatic carcinoma: a retrospective study of 34 cases",
+      "year": "2013",
+      "journal": "Veterinary and comparative oncology"
+    },
+    {
+      "pmid": "14524386",
+      "title": "Animal danders",
+      "year": "2003",
+      "journal": "Immunology and allergy clinics of North America"
+    },
+    {
+      "pmid": "27281014",
+      "title": "Feline Mammary Cancer",
+      "year": "2017",
+      "journal": "Veterinary pathology"
+    },
+    {
+      "pmid": "25538130",
+      "title": "Human and other mammalian bite injuries of the hand: evaluation and management",
+      "year": "2015",
+      "journal": "The Journal of the American Academy of Orthopaedic Surgeons"
+    },
+    {
+      "pmid": "2685062",
+      "title": "Management of human and animal bite wounds",
+      "year": "1989",
+      "journal": "Journal of the American Academy of Dermatology"
+    },
+    {
+      "pmid": "3289247",
+      "title": "Selected neurotoxins",
+      "year": "1988",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "30810092",
+      "title": "Common feline problem behaviors: Urine spraying",
+      "year": "2019",
+      "journal": "Journal of feline medicine and surgery"
+    },
+    {
+      "pmid": "37538269",
+      "title": "Cat rabies in Brazil: a growing One Health concern",
+      "year": "2023",
+      "journal": "Frontiers in public health"
+    },
+    {
+      "pmid": "2053250",
+      "title": "Feline scratching and destruction and the effects of declawing",
+      "year": "1991",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "12701512",
+      "title": "Differential diagnosis and management of human-directed aggression in cats",
+      "year": "2003",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "26323804",
+      "title": "Methods of fertility control in cats: Owner, breeder and veterinarian behavior  and attitudes",
+      "year": "2015",
+      "journal": "Journal of feline medicine and surgery"
+    },
+    {
+      "pmid": "30721257",
+      "title": "Owner personality and the wellbeing of their cats share parallels with the  parent-child relationship",
+      "year": "2019",
+      "journal": "PloS one"
+    },
+    {
+      "pmid": "37635261",
+      "title": "Cross-species oncogenomics offers insight into human muscle-invasive bladder  cancer",
+      "year": "2023",
+      "journal": "Genome biology"
+    },
+    {
+      "pmid": "26608484",
+      "title": "[Epidemiology, microbiology and diagnostics of dog and cat bites related  infections]",
+      "year": "2015",
+      "journal": "Polski merkuriusz lekarski : organ Polskiego Towarzystwa Lekarskiego"
+    },
+    {
+      "pmid": "2253312",
+      "title": "Spontaneous tumors in dogs and cats: models for the study of cancer biology and  treatment",
+      "year": "1990",
+      "journal": "Cancer metastasis reviews"
+    },
+    {
+      "pmid": "36603802",
+      "title": "Spatial patterns and risk of aggression of dogs and cats in a central township of  Mexico City",
+      "year": "2023",
+      "journal": "Acta tropica"
+    },
+    {
+      "pmid": "11263761",
+      "title": "Brain structures and neurotransmitters regulating aggression in cats:  implications for human aggression",
+      "year": "2001",
+      "journal": "Progress in neuro-psychopharmacology & biological psychiatry"
+    },
+    {
+      "pmid": "39681068",
+      "title": "Transcriptomic and proteomic profiling identifies feline fibrosarcoma as  clinically amenable model for aggressive sarcoma subtypes",
+      "year": "2025",
+      "journal": "Neoplasia (New York, N.Y.)"
+    },
+    {
+      "pmid": "31360726",
+      "title": "Photodynamic Surgery for Feline Injection-Site Sarcoma",
+      "year": "2019",
+      "journal": "BioMed research international"
+    },
+    {
+      "pmid": "33980052",
+      "title": "Dog bite wounds in cats: a retrospective study of 72 cases",
+      "year": "2022",
+      "journal": "Journal of feline medicine and surgery"
+    },
+    {
+      "pmid": "20970093",
+      "title": "Homeopathic prescribing for chronic conditions in feline and canine veterinary  practice",
+      "year": "2010",
+      "journal": "Homeopathy : the journal of the Faculty of Homeopathy"
+    },
+    {
+      "pmid": "1090706",
+      "title": "Lithium in the treatment of aggression",
+      "year": "1975",
+      "journal": "The Journal of nervous and mental disease"
+    },
+    {
+      "pmid": "34213807",
+      "title": "Canine and feline haemangiosarcoma",
+      "year": "2021",
+      "journal": "The Veterinary record"
+    },
+    {
+      "pmid": "36790884",
+      "title": "Scientific Validation of Cannabidiol for Management of Dog and Cat Diseases",
+      "year": "2023",
+      "journal": "Annual review of animal biosciences"
+    },
+    {
+      "pmid": "31186126",
+      "title": "Histiocytic Sarcoma and Hemangiosarcoma Update",
+      "year": "2019",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "37330274",
+      "title": "Decision-Making on Recommended Age of Spay/Neuter for a Specific Dog: General  Principles and Cultural Complexities",
+      "year": "2023",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "30244666",
+      "title": "Grading Cutaneous Mast Cell Tumors in Cats",
+      "year": "2019",
+      "journal": "Veterinary pathology"
+    },
+    {
+      "pmid": "33641809",
+      "title": "Pituitary tumour types in dogs and cats",
+      "year": "2021",
+      "journal": "Veterinary journal (London, England : 1997)"
+    },
+    {
+      "pmid": "18081524",
+      "title": "Hemangiosarcoma in cats: 53 cases (1992-2002)",
+      "year": "2007",
+      "journal": "Journal of the American Veterinary Medical Association"
+    },
+    {
+      "pmid": "26928749",
+      "title": "Musculoskeletal MRI",
+      "year": "2016",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "40973424",
+      "title": "Pediatric Oncology",
+      "year": "2025",
+      "journal": "The Veterinary clinics of North America. Small animal practice"
+    },
+    {
+      "pmid": "36066435",
+      "title": "Clinical presentation and outcome in cats with aural squamous cell carcinoma: a  review of 25 cases (2010-2021)",
+      "year": "2022",
+      "journal": "Journal of feline medicine and surgery"
+    }
+  ]
+}

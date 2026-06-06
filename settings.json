@@ -1,0 +1,49 @@
+{
+  "llm": "mimo-v2.5-pro",
+  "summary_llm": "mimo-v2.5-pro",
+  "embedding": "st-multi-qa-MiniLM-L6-cos-v1",
+  "temperature": 0.1,
+  "verbosity": 1,
+  "llm_config": {
+    "model_list": [
+      {
+        "model_name": "mimo-v2.5-pro",
+        "litellm_params": {
+          "model": "openai/mimo-v2.5-pro",
+          "api_base": "https://token-plan-sgp.xiaomimimo.com/v1",
+          "api_key": "os.environ/PQA_API_KEY"
+        }
+      }
+    ]
+  },
+  "summary_llm_config": {
+    "model_list": [
+      {
+        "model_name": "mimo-v2.5-pro",
+        "litellm_params": {
+          "model": "openai/mimo-v2.5-pro",
+          "api_base": "https://token-plan-sgp.xiaomimimo.com/v1",
+          "api_key": "os.environ/PQA_API_KEY"
+        }
+      }
+    ]
+  },
+  "parsing": {
+    "use_doc_details": false,
+    "multimodal": "OFF"
+  },
+  "answer": {
+    "evidence_k": 12,
+    "answer_max_sources": 6,
+    "evidence_summary_length": "about 120 words",
+    "answer_length": "comprehensive but focused, with inline citations"
+  },
+  "agent": {
+    "index": {
+      "paper_directory": "papers",
+      "manifest_file": "papers/manifest.csv",
+      "index_directory": ".pqa_index",
+      "recurse_subdirectories": false
+    }
+  }
+}
