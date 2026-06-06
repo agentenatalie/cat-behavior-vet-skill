@@ -18,7 +18,7 @@ If you accidentally expose a secret, revoke it first, then open an issue describ
 
 ## Medical Safety
 
-This project is not a veterinary diagnosis service. It is an evidence-retrieval and reasoning aid for AI runtimes.
+This project is not a diagnosis service. It is an evidence-retrieval and reasoning aid for AI runtimes.
 
 Urgent or high-risk situations should be handled by in-person care:
 
@@ -39,4 +39,4 @@ Open a GitHub issue with a short description and reproduction steps. Do not incl
 
 如果误泄露 secret，请先撤销 secret，再提交 issue 描述受影响文件路径，不要粘贴 secret 本身。
 
-本项目不是兽医诊断服务。涉及受伤、攻击升级、突然行为变化、疑似疼痛/疾病、福利风险或处方药决策时，应寻求线下兽医帮助。
+本项目不是诊断服务。涉及受伤、攻击升级、突然行为变化、疑似疼痛/疾病、福利风险或处方药决策时，应寻求线下专业帮助。

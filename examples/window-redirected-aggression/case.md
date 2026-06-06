@@ -3,7 +3,7 @@
 Fictional user prompt:
 
 ```text
-Use $cat-behavior-vet to assess this case:
+Use $cat-behavior-consult to assess this case:
 
 My 4-year-old neutered indoor cat saw an outdoor cat through the living-room
 window. About 20 seconds later he attacked my lower leg. He bit and scratched;

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 兽医行为 consult skill 的可选文献问答内核 (PaperQA2)
+# 猫咪行为咨询 skill 的可选文献问答内核 (PaperQA2)
 # 用法: ./scripts/consult.sh "猫的压力行为有哪些可靠的客观指标?"
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

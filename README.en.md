@@ -1,8 +1,8 @@
 <div align="center">
 
-<h1>Cat Behavior Vet Skill</h1>
+<h1>Cat Behavior Consultation Skill</h1>
 
-<h3>Evidence-grounded feline behavior consults: intake, medical triage, literature retrieval, and practical care plans.</h3>
+<h3>Evidence-grounded cat behavior consultation: intake, risk triage, literature retrieval, and practical care plans.</h3>
 
 [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC_BY--NC--ND_4.0-lightgrey.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
@@ -18,26 +18,26 @@
 
 ## What It Does
 
-Cat Behavior Vet Skill helps AI assistants handle cat behavior questions as structured, evidence-aware consults. It is built for cases such as sudden aggression, redirected aggression, fear, stress, anxiety, litter box problems, pain-related behavior change, multi-cat conflict, and clinic handling.
+Cat Behavior Consultation Skill helps AI assistants handle cat behavior questions as structured, evidence-aware consults. It is built for cases such as sudden aggression, redirected aggression, fear, stress, anxiety, litter box problems, pain-related behavior change, multi-cat conflict, and clinic handling.
 
 | Stage | What happens | Output |
 | --- | --- | --- |
 | **Intake** | Ask for the missing case facts before giving a full answer. | Confirmed case summary |
-| **Medical triage** | Flag pain, illness, medication, neurologic, urinary, skin, GI, and welfare risks. | Vet visit / referral thresholds |
+| **Risk triage** | Flag pain, illness, medication, neurologic, urinary, skin, GI, and welfare risks. | Care / referral thresholds |
 | **Evidence retrieval** | Search a local PubMed-derived corpus with bundled scripts. | Cited evidence snippets |
 | **Behavior assessment** | Classify likely motivation and differentials. | Diagnosis-by-motivation, not labels |
 | **Plan** | Build safety, management, environment, and behavior-modification steps. | Practical care plan + step-by-step execution flow |
 | **Evidence map** | Tie each major action to papers, public implementation reports, and stop criteria. | Action-evidence table |
 | **Real-world check** | When web access is available, compare against similar public case reports. | Anecdotal implementation patterns |
 
-The skill does not fabricate citations, does not endorse dominance or punishment-based advice, and does not replace veterinary care.
+The skill does not fabricate citations, does not endorse dominance or punishment-based advice, and does not replace in-person professional care.
 
 ## How To Use
 
 After installation, ask your AI assistant to use the skill with a case:
 
 ```text
-Use $cat-behavior-vet to assess this case:
+Use $cat-behavior-consult to assess this case:
 My 4-year-old neutered indoor cat attacks my leg after seeing an outdoor cat through the window. What should I do?
 ```
 
@@ -53,7 +53,7 @@ Expected flow:
 2. Summarize the case and ask for confirmation.
 3. Retrieve local scientific evidence.
 4. Search similar public real-world reports when web access is available.
-5. Produce a cited consult with medical triage, behavior assessment, step-by-step execution flow, action-evidence table, limitations, and escalation thresholds.
+5. Produce a cited consult with risk triage, behavior assessment, step-by-step execution flow, action-evidence table, limitations, and escalation thresholds.
 
 ## Examples
 
@@ -62,7 +62,7 @@ The [`examples/`](examples/) folder contains fictional sample cases and shortene
 | Example | Focus | Files |
 | --- | --- | --- |
 | Window-triggered aggression | Redirected aggression after seeing an outdoor cat | [Case](examples/window-redirected-aggression/case.md) · [Sample consult](examples/window-redirected-aggression/sample-consult.md) |
-| Vet visit stress | Carrier, car, and clinic stress | [Case](examples/vet-visit-stress/case.md) · [Sample consult](examples/vet-visit-stress/sample-consult.md) |
+| Clinic visit stress | Carrier, car, and clinic stress | [Case](examples/clinic-visit-stress/case.md) · [Sample consult](examples/clinic-visit-stress/sample-consult.md) |
 
 Examples do not include article abstracts, full text, PDFs, private case data, or Zotero content.
 
@@ -71,7 +71,7 @@ Examples do not include article abstracts, full text, PDFs, private case data, o
 ### Option 1: Agent Skills CLI
 
 ```bash
-npx skills add agentenatalie/cat-behavior-vet-skill
+npx skills add agentenatalie/cat-behavior-consult-skill
 ```
 
 ### Option 2: Manual Install
@@ -79,13 +79,13 @@ npx skills add agentenatalie/cat-behavior-vet-skill
 Claude Code:
 
 ```bash
-git clone https://github.com/agentenatalie/cat-behavior-vet-skill.git ~/.claude/skills/cat-behavior-vet
+git clone https://github.com/agentenatalie/cat-behavior-consult-skill.git ~/.claude/skills/cat-behavior-consult
 ```
 
 Codex:
 
 ```bash
-git clone https://github.com/agentenatalie/cat-behavior-vet-skill.git ~/.codex/skills/cat-behavior-vet
+git clone https://github.com/agentenatalie/cat-behavior-consult-skill.git ~/.codex/skills/cat-behavior-consult
 ```
 
 Other compatible runtimes: place this repository in the runtime's skills directory.
@@ -95,7 +95,7 @@ Other compatible runtimes: place this repository in the runtime's skills directo
 The repository does not ship article abstracts, full text, PDFs, RIS files, or vector indexes. Generate the local corpus on your own machine:
 
 ```bash
-cd ~/.claude/skills/cat-behavior-vet
+cd ~/.claude/skills/cat-behavior-consult
 NCBI_EMAIL=you@example.com python3 literature/harvest_pubmed.py
 UNPAYWALL_EMAIL=you@example.com python3 scripts/fetch_oa.py
 ```
@@ -222,7 +222,7 @@ Repeated imports can create duplicates. Use Zotero's Duplicate Items view or imp
 ## Repository Structure
 
 ```text
-cat-behavior-vet-skill/
+cat-behavior-consult-skill/
 ├── SKILL.md
 ├── README.md
 ├── README.en.md
@@ -233,7 +233,7 @@ cat-behavior-vet-skill/
 │   └── example-window-redirected-consult-zh-CN.png
 ├── examples/
 │   ├── window-redirected-aggression/
-│   └── vet-visit-stress/
+│   └── clinic-visit-stress/
 ├── literature/
 │   ├── harvest_pubmed.py
 │   └── cat-behavior.provenance.json
@@ -271,9 +271,9 @@ This project is not affiliated with NCBI, NLM, PubMed, Unpaywall, Europe PMC, Zo
 
 ## Safety
 
-This skill is for education and decision support. It is not a veterinary diagnosis service and does not replace an in-person veterinarian or board-certified veterinary behaviorist.
+This skill is for education and decision support. It is not a diagnosis service and does not replace in-person professional care or a board-certified veterinary behaviorist.
 
-Behavior changes can be caused by pain, disease, medication effects, neurologic issues, or environmental stressors. For injuries, escalating aggression, sudden behavior change, severe distress, or welfare risk, seek in-person veterinary care.
+Behavior changes can be caused by pain, disease, medication effects, neurologic issues, or environmental stressors. For injuries, escalating aggression, sudden behavior change, severe distress, or welfare risk, seek in-person professional care.
 
 ## License
 

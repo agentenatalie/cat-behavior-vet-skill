@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Search the local veterinary-behavior corpus without calling an LLM.
+"""Search the local cat-behavior corpus without calling an LLM.
 
 This is the default evidence retrieval path for Native Skill Mode: the current
 AI runtime runs this script, reads the returned snippets, and uses its own model

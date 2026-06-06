@@ -3,7 +3,7 @@
 虚构用户输入：
 
 ```text
-Use $cat-behavior-vet to assess this case:
+Use $cat-behavior-consult to assess this case:
 
 我家 4 岁已绝育室内猫在客厅窗边看到一只户外猫。大约 20 秒后，它冲过来攻击我的小腿。它又咬又抓，其中一处咬伤破皮。这个月已经发生两次，每次都在同一扇窗附近。它大约 40 分钟后才平静下来。家里没有小孩，还有另一只猫，目前已经隔开。最近没有做过兽医检查。
 ```

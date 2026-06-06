@@ -1,4 +1,4 @@
-# Sample Consult: Veterinary Visit Stress Handling Flow
+# Sample Consult: Clinic Visit Stress Handling Flow
 
 This is a fictional example showing the expected skill output structure. It is
 not veterinary advice for a real animal.

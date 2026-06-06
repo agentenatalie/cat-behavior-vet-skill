@@ -1,9 +1,9 @@
-# Vet Visit Stress
+# Clinic Visit Stress
 
 Fictional user prompt:
 
 ```text
-Use $cat-behavior-vet to assess this case:
+Use $cat-behavior-consult to assess this case:
 
 My 8-year-old spayed indoor cat panics during car rides and veterinary visits.
 She hides when the carrier appears, pants in the car, and sometimes urinates in

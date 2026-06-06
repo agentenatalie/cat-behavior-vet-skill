@@ -3,7 +3,7 @@
 虚构用户输入：
 
 ```text
-Use $cat-behavior-vet to assess this case:
+Use $cat-behavior-consult to assess this case:
 
 我家 8 岁已绝育室内母猫坐车和去兽医诊所时会非常恐慌。猫包一出现她就躲起来，在车里会喘，有时还会尿在猫包里。诊所建议下次就诊前用药，但我想先知道有哪些循证的处理和准备步骤。
 ```
