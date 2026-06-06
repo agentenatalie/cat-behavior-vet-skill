@@ -59,18 +59,19 @@ Use $cat-behavior-consult to assess this case:
 
 ## 效果示例
 
-下面的截图来自一个虚构 consult，展示输出会如何从 case summary、核心判断、当天动作一路写到文字执行流程和停止条件。
+同一个虚构 case，从用户输入到 consult 输出：
 
-<div align="center">
-  <img src="assets/example-window-redirected-consult-zh-CN.png" alt="窗外猫触发后的转嫁攻击康复方案示例 consult 截图" width="100%" />
-</div>
+| 阶段 | 预览 | 文件 |
+| --- | --- | --- |
+| 输入 Case | <img src="assets/example-window-redirected-input-zh-CN.png" alt="窗外猫触发攻击的虚构用户输入截图" width="100%" /> | [查看输入 case](examples/window-redirected-aggression/case.zh-CN.md) |
+| 输出 Consult | <img src="assets/example-window-redirected-consult-zh-CN.png" alt="窗外猫触发后的转嫁攻击康复方案示例 consult 截图" width="100%" /> | [查看完整示例 consult](examples/window-redirected-aggression/sample-consult.zh-CN.md) |
 
 [`examples/`](examples/) 里有虚构 case 和缩短版 consult 示例：
 
-| 示例 | 重点 | 文件 |
-| --- | --- | --- |
-| 窗外猫触发攻击 | 看到窗外猫后的转嫁攻击 | [Case](examples/window-redirected-aggression/case.zh-CN.md) · [示例 consult](examples/window-redirected-aggression/sample-consult.zh-CN.md) |
-| 就诊压力 | 猫包、乘车和诊所压力 | [Case](examples/clinic-visit-stress/case.zh-CN.md) · [示例 consult](examples/clinic-visit-stress/sample-consult.zh-CN.md) |
+| 示例 | 输入 | 输出 | 看点 |
+| --- | --- | --- | --- |
+| 窗外猫触发攻击 | [Case](examples/window-redirected-aggression/case.zh-CN.md) | [示例 consult](examples/window-redirected-aggression/sample-consult.zh-CN.md) | 转嫁攻击、安全隔离、文字执行流程、停止条件 |
+| 就诊压力 | [Case](examples/clinic-visit-stress/case.zh-CN.md) | [示例 consult](examples/clinic-visit-stress/sample-consult.zh-CN.md) | 猫包训练、运输设置、诊所沟通、用药讨论边界 |
 
 示例不包含论文摘要正文、全文、PDF、私人 case 信息或 Zotero 内容。
 
@@ -238,6 +239,7 @@ cat-behavior-consult-skill/
 ├── settings.json
 ├── assets/
 │   ├── hero-zh-CN.png
+│   ├── example-window-redirected-input-zh-CN.png
 │   └── example-window-redirected-consult-zh-CN.png
 ├── examples/
 │   ├── window-redirected-aggression/
@@ -270,18 +272,29 @@ cat-behavior-consult-skill/
 paper discovery 使用官方公开服务：
 
 - PubMed E-utilities：<https://www.ncbi.nlm.nih.gov/books/NBK25501/>
+- NCBI Policies and Disclaimers：<https://www.ncbi.nlm.nih.gov/home/about/policies/>
+- PubMed Disclaimer：<https://pubmed.ncbi.nlm.nih.gov/disclaimer/>
 - Unpaywall API：<https://unpaywall.org/products/api>
 - Europe PMC REST API：<https://europepmc.org/RestfulWebService>
 
 PubMed 可访问不等于每篇摘要都可以再分发。开放获取检索结果也不代表每篇 PDF 都有相同许可证。生成的语料默认保留在使用者本机，除非逐篇确认允许再分发。
 
+使用者应遵守 NCBI、PubMed、Unpaywall、Europe PMC 和出版商的使用条款、版权声明、转载限制和接口请求频率限制。PubMed 摘要可能受版权保护；转载、再分发或商业使用需要遵守权利人条款。本仓库不代表 NCBI、NLM、PubMed 或任何出版商授权用户再分发内容。
+
 本项目与 NCBI、NLM、PubMed、Unpaywall、Europe PMC、Zotero、PaperQA2、DACVB、ECAWBM 均无隶属关系。
 
 ## 安全说明
 
-这个 skill 用于教育和决策辅助。它不是诊断服务，不能替代线下专业诊疗或 board-certified veterinary behaviorist。
+这个 skill 只用于教育和决策辅助，不提供诊断或治疗。它不会：
 
-行为变化可能来自疼痛、疾病、药物影响、神经问题或环境压力。涉及受伤、攻击升级、突然行为变化、严重 distress 或动物福利风险时，应寻求线下专业帮助。
+- 诊断疾病、行为病因或精神/神经问题；
+- 开药、建议处方药、决定剂量或调整用药；
+- 处理急症、正在发生的攻击，或人身安全正在受威胁的情况；
+- 建议用户延迟就医，或用在线建议替代线下检查；
+- 建立 VCPR，即 veterinarian-client-patient relationship；
+- 替代线下专业诊疗或 board-certified veterinary behaviorist。
+
+以下情况不要等待 skill 输出：人或动物已经受伤、咬伤/抓伤破皮、攻击无法安全隔离、突然行为变化、疑似疼痛/疾病/尿闭、严重 distress、快速恶化、处方药问题或动物福利风险。先联系当地线下专业人员；涉及人身伤口时，按当地医疗建议处理。
 
 ## License
 

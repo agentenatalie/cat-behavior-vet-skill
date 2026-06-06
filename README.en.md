@@ -57,12 +57,21 @@ Expected flow:
 
 ## Examples
 
+One fictional case, from user input to consult output:
+
+The visual preview is in Chinese because the primary README is Chinese; English sample files are linked below.
+
+| Stage | Preview | File |
+| --- | --- | --- |
+| Input Case | <img src="assets/example-window-redirected-input-zh-CN.png" alt="Fictional user input screenshot for window-triggered aggression" width="100%" /> | [Open input case](examples/window-redirected-aggression/case.md) |
+| Consult Output | <img src="assets/example-window-redirected-consult-zh-CN.png" alt="Sample consult screenshot for window-triggered redirected aggression" width="100%" /> | [Open sample consult](examples/window-redirected-aggression/sample-consult.md) |
+
 The [`examples/`](examples/) folder contains fictional sample cases and shortened consult outputs:
 
-| Example | Focus | Files |
-| --- | --- | --- |
-| Window-triggered aggression | Redirected aggression after seeing an outdoor cat | [Case](examples/window-redirected-aggression/case.md) · [Sample consult](examples/window-redirected-aggression/sample-consult.md) |
-| Clinic visit stress | Carrier, car, and clinic stress | [Case](examples/clinic-visit-stress/case.md) · [Sample consult](examples/clinic-visit-stress/sample-consult.md) |
+| Example | Input | Output | Focus |
+| --- | --- | --- | --- |
+| Window-triggered aggression | [Case](examples/window-redirected-aggression/case.md) | [Sample consult](examples/window-redirected-aggression/sample-consult.md) | Redirected aggression, safe separation, execution flow, stop criteria |
+| Clinic visit stress | [Case](examples/clinic-visit-stress/case.md) | [Sample consult](examples/clinic-visit-stress/sample-consult.md) | Carrier training, transport setup, clinic coordination, medication boundaries |
 
 Examples do not include article abstracts, full text, PDFs, private case data, or Zotero content.
 
@@ -230,6 +239,7 @@ cat-behavior-consult-skill/
 ├── settings.json
 ├── assets/
 │   ├── hero-zh-CN.png
+│   ├── example-window-redirected-input-zh-CN.png
 │   └── example-window-redirected-consult-zh-CN.png
 ├── examples/
 │   ├── window-redirected-aggression/
@@ -262,18 +272,29 @@ It does not include:
 Paper discovery uses official public services:
 
 - PubMed E-utilities: <https://www.ncbi.nlm.nih.gov/books/NBK25501/>
+- NCBI Policies and Disclaimers: <https://www.ncbi.nlm.nih.gov/home/about/policies/>
+- PubMed Disclaimer: <https://pubmed.ncbi.nlm.nih.gov/disclaimer/>
 - Unpaywall API: <https://unpaywall.org/products/api>
 - Europe PMC REST API: <https://europepmc.org/RestfulWebService>
 
 PubMed accessibility does not mean every abstract can be redistributed. Open-access discovery does not mean every PDF has the same license. Generated corpus files should remain local unless redistribution rights are checked item by item.
 
+Users must comply with NCBI, PubMed, Unpaywall, Europe PMC, and publisher terms, copyright notices, redistribution limits, and API rate limits. PubMed abstracts may be copyrighted; reproduction, redistribution, or commercial use must follow rights-holder terms. This repository does not grant permission from NCBI, NLM, PubMed, or any publisher to redistribute content.
+
 This project is not affiliated with NCBI, NLM, PubMed, Unpaywall, Europe PMC, Zotero, PaperQA2, DACVB, or ECAWBM.
 
 ## Safety
 
-This skill is for education and decision support. It is not a diagnosis service and does not replace in-person professional care or a board-certified veterinary behaviorist.
+This skill is for education and decision support only. It does not provide diagnosis or treatment. It does not:
 
-Behavior changes can be caused by pain, disease, medication effects, neurologic issues, or environmental stressors. For injuries, escalating aggression, sudden behavior change, severe distress, or welfare risk, seek in-person professional care.
+- diagnose disease, behavioral etiology, psychiatric issues, or neurologic issues;
+- prescribe medication, recommend prescription drugs, determine dose, or adjust medication;
+- handle emergencies, active attacks, or situations where human safety is currently threatened;
+- tell users to delay care or replace an in-person exam with online advice;
+- create a VCPR, meaning a veterinarian-client-patient relationship;
+- replace in-person professional care or a board-certified veterinary behaviorist.
+
+Do not wait for skill output when a person or animal has been injured, a bite or scratch broke skin, aggression cannot be safely contained, behavior changed suddenly, pain/illness/urinary blockage is possible, distress is severe, the case is deteriorating, medication decisions are needed, or welfare risk is present. Contact local in-person professionals first; for human wounds, follow local medical guidance.
 
 ## License
 

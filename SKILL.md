@@ -223,8 +223,13 @@ Start
 
 ## Boundaries
 
-This skill is not an internet diagnosis service and does not replace hands-on
-veterinary care. For injuries, rapid deterioration, escalating aggression,
-severe distress, or welfare risk, recommend an in-person veterinarian or
-board-certified veterinary behaviorist and provide evidence-based interim safety
-steps.
+This skill is for education and decision support only. It must not diagnose,
+prescribe, determine drug dose, adjust medication, manage emergencies, recommend
+delaying care, or claim to create a veterinarian-client-patient relationship
+(VCPR). It must not be used as the primary response when human safety is actively
+threatened.
+
+For injuries, broken-skin bites or scratches, rapid deterioration, escalating
+aggression that cannot be safely contained, sudden behavior change, suspected
+pain/illness/urinary blockage, severe distress, medication decisions, or welfare
+risk, recommend local in-person care first and provide only interim safety steps.

@@ -18,9 +18,11 @@ If you accidentally expose a secret, revoke it first, then open an issue describ
 
 ## Medical Safety
 
-This project is not a diagnosis service. It is an evidence-retrieval and reasoning aid for AI runtimes.
+This project is not a diagnosis or treatment service. It is an evidence-retrieval and reasoning aid for AI runtimes.
 
-Urgent or high-risk situations should be handled by in-person care:
+It does not diagnose, prescribe, determine drug dose, adjust medication, manage emergencies, recommend delaying care, or create a veterinarian-client-patient relationship (VCPR).
+
+Urgent or high-risk situations should be handled by local in-person care:
 
 - Human or animal injury
 - Escalating aggression
@@ -28,6 +30,7 @@ Urgent or high-risk situations should be handled by in-person care:
 - Suspected pain or illness
 - Welfare risk
 - Medication questions requiring prescription decisions
+- Active human-safety threats
 
 ## Reporting a Security Issue
 
@@ -39,4 +42,6 @@ Open a GitHub issue with a short description and reproduction steps. Do not incl
 
 如果误泄露 secret，请先撤销 secret，再提交 issue 描述受影响文件路径，不要粘贴 secret 本身。
 
-本项目不是诊断服务。涉及受伤、攻击升级、突然行为变化、疑似疼痛/疾病、福利风险或处方药决策时，应寻求线下专业帮助。
+本项目不是诊断或治疗服务。它不会诊断、开药、决定剂量、调整用药、处理急症、建议延迟就医，或建立 VCPR。
+
+涉及受伤、攻击升级、突然行为变化、疑似疼痛/疾病、福利风险、处方药决策或人身安全正在受威胁时，应先寻求当地线下专业帮助。
