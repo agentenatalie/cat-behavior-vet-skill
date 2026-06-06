@@ -1,98 +1,106 @@
 <div align="center">
 
-# Cat Behavior Vet Skill
+<h1>猫行为兽医咨询 Skill</h1>
 
-<h3>Evidence-grounded feline behavior consults: intake, medical triage, literature retrieval, and practical care plans.</h3>
+<img src="assets/hero-zh-CN.png" alt="猫咪行为咨询 skill：猫咪应激、攻击、乱尿，帮你看懂原因，做对处理" width="100%" />
+
+<h3>循证猫行为咨询：先问清背景，再做医学分诊、文献检索和可执行照护方案。</h3>
 
 [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC_BY--NC--ND_4.0-lightgrey.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-Standard-green)](https://agentskills.io)
-[![Corpus](https://img.shields.io/badge/Corpus-local_only-lightgrey.svg)](#data-and-copyright)
-[![中文 README](https://img.shields.io/badge/README-ZH--CN-red.svg)](README.zh-CN.md)
+[![Corpus](https://img.shields.io/badge/Corpus-local_only-lightgrey.svg)](#数据和版权)
+[![English README](https://img.shields.io/badge/README-English-blue.svg)](README.en.md)
 
-[What It Does](#what-it-does) · [How To Use](#how-to-use) · [Examples](#examples) · [Installation](#installation) · [Corpus Setup](#corpus-setup) · [Integrations](#integrations) · [Data & Copyright](#data-and-copyright)
+[English](README.en.md) · [它能做什么](#它能做什么) · [怎么用](#怎么用) · [效果示例](#效果示例) · [安装](#安装) · [语料生成](#语料生成) · [可选集成](#可选集成) · [数据和版权](#数据和版权)
 
 </div>
 
 ---
 
-## What It Does
+## 它能做什么
 
-Cat Behavior Vet Skill helps AI assistants handle cat behavior questions as structured, evidence-aware consults. It is built for cases such as sudden aggression, redirected aggression, fear, stress, anxiety, litter box problems, pain-related behavior change, multi-cat conflict, and clinic handling.
+猫行为兽医咨询 Skill 用来让 AI 助手按循证流程处理猫行为问题。适用场景包括突然攻击、转嫁攻击、恐惧、应激、焦虑、乱尿/乱排泄、疼痛相关行为变化、多猫冲突和就诊处理。
 
-| Stage | What happens | Output |
+| 阶段 | 做什么 | 产出 |
 | --- | --- | --- |
-| **Intake** | Ask for the missing case facts before giving a full answer. | Confirmed case summary |
-| **Medical triage** | Flag pain, illness, medication, neurologic, urinary, skin, GI, and welfare risks. | Vet visit / referral thresholds |
-| **Evidence retrieval** | Search a local PubMed-derived corpus with bundled scripts. | Cited evidence snippets |
-| **Behavior assessment** | Classify likely motivation and differentials. | Diagnosis-by-motivation, not labels |
-| **Plan** | Build safety, management, environment, and behavior-modification steps. | Practical care plan + step-by-step execution flow |
-| **Evidence map** | Tie each major action to papers, public implementation reports, and stop criteria. | Action-evidence table |
-| **Real-world check** | When web access is available, compare against similar public case reports. | Anecdotal implementation patterns |
+| **Intake** | 先追问缺失背景，不直接下结论。 | 已确认的 case summary |
+| **医学分诊** | 排查疼痛、疾病、药物、神经、泌尿、皮肤、胃肠和福利风险。 | 就医 / 转诊阈值 |
+| **证据检索** | 用内置脚本检索本地 PubMed 派生语料。 | 带引用的证据片段 |
+| **行为评估** | 按行为动机分类，并列出鉴别方向。 | 基于动机的判断 |
+| **处理方案** | 给出安全管理、环境调整和行为改变步骤。 | 可执行照护方案 + 文字执行流程 |
+| **证据地图** | 把每个关键动作对应到论文、公开实践案例和停止条件。 | 行动-证据对照表 |
+| **真实案例对照** | 有 web access 时，查找相似公开案例。 | Anecdotal 实践模式 |
 
-The skill does not fabricate citations, does not endorse dominance or punishment-based advice, and does not replace veterinary care.
+这个 skill 不伪造引用，不推荐支配论或惩罚式建议，也不能替代线下兽医。
 
-## How To Use
+## 怎么用
 
-After installation, ask your AI assistant to use the skill with a case:
+安装后，直接让 AI 助手使用这个 skill：
 
 ```text
 Use $cat-behavior-vet to assess this case:
-My 4-year-old neutered indoor cat attacks my leg after seeing an outdoor cat through the window. What should I do?
+我家 4 岁已绝育室内猫看到窗外野猫后突然攻击我的腿，应该怎么办？
 ```
 
-For vague cases, the skill should ask follow-up questions before answering:
+如果描述太模糊，skill 应该先追问：
 
 ```text
-My cat suddenly attacked me.
+我家猫突然攻击我了。
 ```
 
-Expected flow:
+预期流程：
 
-1. Ask for animal profile, medical context, event sequence, injury severity, pattern, triggers, household safety, previous responses, and user constraints.
-2. Summarize the case and ask for confirmation.
-3. Retrieve local scientific evidence.
-4. Search similar public real-world reports when web access is available.
-5. Produce a cited consult with medical triage, behavior assessment, step-by-step execution flow, action-evidence table, limitations, and escalation thresholds.
+1. 询问动物信息、医学背景、事件经过、伤害严重程度、发生模式、触发因素、家庭安全、之前怎么处理、用户目标和限制。
+2. 复述 case summary，并让用户确认。
+3. 检索本地科学文献。
+4. 有 web access 时，搜索相似公开真实案例。
+5. 输出带引用的 consult：医学分诊、行为评估、文字执行流程、行动-证据对照表、局限和升级条件。
 
-## Examples
+## 效果示例
 
-The [`examples/`](examples/) folder contains fictional sample cases and shortened consult outputs:
+下面的截图来自一个虚构 consult，展示输出会如何从 case summary、核心判断、当天动作一路写到文字执行流程和停止条件。
 
-| Example | Focus | Files |
+<div align="center">
+  <img src="assets/example-window-redirected-consult-zh-CN.png" alt="窗外猫触发后的转嫁攻击康复方案示例 consult 截图" width="100%" />
+</div>
+
+[`examples/`](examples/) 里有虚构 case 和缩短版 consult 示例：
+
+| 示例 | 重点 | 文件 |
 | --- | --- | --- |
-| Window-triggered aggression | Redirected aggression after seeing an outdoor cat | [Case](examples/window-redirected-aggression/case.md) · [Sample consult](examples/window-redirected-aggression/sample-consult.md) |
-| Vet visit stress | Carrier, car, and clinic stress | [Case](examples/vet-visit-stress/case.md) · [Sample consult](examples/vet-visit-stress/sample-consult.md) |
+| 窗外猫触发攻击 | 看到窗外猫后的转嫁攻击 | [Case](examples/window-redirected-aggression/case.zh-CN.md) · [示例 consult](examples/window-redirected-aggression/sample-consult.zh-CN.md) |
+| 就诊压力 | 猫包、乘车和诊所压力 | [Case](examples/vet-visit-stress/case.zh-CN.md) · [示例 consult](examples/vet-visit-stress/sample-consult.zh-CN.md) |
 
-Examples do not include article abstracts, full text, PDFs, private case data, or Zotero content.
+示例不包含论文摘要正文、全文、PDF、私人 case 信息或 Zotero 内容。
 
-## Installation
+## 安装
 
-### Option 1: Agent Skills CLI
+### 方式一：Agent Skills CLI
 
 ```bash
 npx skills add agentenatalie/cat-behavior-vet-skill
 ```
 
-### Option 2: Manual Install
+### 方式二：手动安装
 
-Claude Code:
+Claude Code：
 
 ```bash
 git clone https://github.com/agentenatalie/cat-behavior-vet-skill.git ~/.claude/skills/cat-behavior-vet
 ```
 
-Codex:
+Codex：
 
 ```bash
 git clone https://github.com/agentenatalie/cat-behavior-vet-skill.git ~/.codex/skills/cat-behavior-vet
 ```
 
-Other compatible runtimes: place this repository in the runtime's skills directory.
+其他兼容 runtime：把这个仓库放进对应的 skills 目录即可。
 
-## Corpus Setup
+## 语料生成
 
-The repository does not ship article abstracts, full text, PDFs, RIS files, or vector indexes. Generate the local corpus on your own machine:
+公开仓库不包含论文摘要正文、全文、PDF、RIS 文件或向量索引。需要在本地生成：
 
 ```bash
 cd ~/.claude/skills/cat-behavior-vet
@@ -100,16 +108,16 @@ NCBI_EMAIL=you@example.com python3 literature/harvest_pubmed.py
 UNPAYWALL_EMAIL=you@example.com python3 scripts/fetch_oa.py
 ```
 
-Use the corresponding install path if you installed under Codex or another runtime.
+如果安装在 Codex 或其他目录，进入对应安装路径运行同样命令。
 
-Test retrieval:
+测试检索：
 
 ```bash
 python3 scripts/search_corpus.py "owner-directed aggression in cats" -n 5
 python3 scripts/search_corpus.py "cat redirected aggression outdoor cat window" -n 5
 ```
 
-Generated local files:
+本地生成文件：
 
 ```text
 literature/cat-behavior.ris
@@ -120,49 +128,49 @@ papers/manifest.csv
 .pqa_index/
 ```
 
-These files are ignored by Git.
+这些文件会被 Git 忽略。
 
 ## Paper Discovery
 
-The default corpus is built from scripted, legal discovery paths:
+默认语料通过合法的脚本化路径生成：
 
-1. `literature/harvest_pubmed.py` runs PubMed E-utilities queries for feline stress, fear, anxiety, aggression, bites, and related behavior topics.
-2. `scripts/fetch_oa.py` reads the local RIS file and tries:
-   - existing local `papers/PMID<pmid>.pdf`
-   - Unpaywall open-access PDF
-   - Europe PMC open-access full-text XML
-   - PubMed abstract text fallback
-3. `papers/manifest.csv` stores local file paths and citation metadata for retrieval.
+1. `literature/harvest_pubmed.py` 运行 PubMed E-utilities 查询，覆盖 feline stress、fear、anxiety、aggression、bite 等猫行为主题。
+2. `scripts/fetch_oa.py` 读取本地 RIS 文件，并按顺序尝试：
+   - 已存在的本地 `papers/PMID<pmid>.pdf`
+   - Unpaywall 开放获取 PDF
+   - Europe PMC 开放获取 full-text XML
+   - PubMed 摘要文本 fallback
+3. `papers/manifest.csv` 保存本地文件路径和 citation metadata，供检索使用。
 
-To add a lawfully obtained PDF, name it by PMID:
+如果你有合法获取的 PDF，把它按 PMID 命名：
 
 ```text
 papers/PMID29099247.pdf
 ```
 
-Then refresh:
+然后刷新：
 
 ```bash
 python3 scripts/fetch_oa.py
 ```
 
-## Integrations
+## 可选集成
 
-| Component | Required? | Install / download | Configuration |
+| 组件 | 是否必需 | 下载 / 安装 | 配置 |
 | --- | --- | --- | --- |
-| Python 3.11+ | Yes | <https://www.python.org/downloads/> | Runs the bundled scripts. |
-| PubMed E-utilities | Corpus generation | <https://www.ncbi.nlm.nih.gov/books/NBK25501/> | Set `NCBI_EMAIL`. |
-| Unpaywall API | OA lookup | <https://unpaywall.org/products/api> | Set `UNPAYWALL_EMAIL`. |
-| Europe PMC REST API | Automatic | <https://europepmc.org/RestfulWebService> | No key required. |
-| Web access | Optional | Runtime dependent | Used after scientific retrieval for similar public cases. |
-| Zotero 7+ | Optional | <https://www.zotero.org/download/> | Use for local library, notes, annotations, and PDFs. |
-| Zotero MCP server | Optional | <https://pypi.org/project/zotero-mcp-server/> | `pipx install zotero-mcp-server`; keep Zotero running. |
-| PaperQA2 / `paper-qa` | Optional | <https://github.com/Future-House/paper-qa> | Requires `PQA_API_KEY` in `.env`. |
-| sentence-transformers | Optional | <https://www.sbert.net/docs/installation.html> | Used for local embeddings in PaperQA2. |
+| Python 3.11+ | 必需 | <https://www.python.org/downloads/> | 运行内置脚本。 |
+| PubMed E-utilities | 生成语料时需要 | <https://www.ncbi.nlm.nih.gov/books/NBK25501/> | 设置 `NCBI_EMAIL`。 |
+| Unpaywall API | 查找 OA 来源时需要 | <https://unpaywall.org/products/api> | 设置 `UNPAYWALL_EMAIL`。 |
+| Europe PMC REST API | 自动使用 | <https://europepmc.org/RestfulWebService> | 不需要 key。 |
+| Web access | 可选 | 取决于 runtime | 文献检索后，用来查找相似公开案例。 |
+| Zotero 7+ | 可选 | <https://www.zotero.org/download/> | 用于本地文献库、笔记、注释和 PDF。 |
+| Zotero MCP server | 可选 | <https://pypi.org/project/zotero-mcp-server/> | `pipx install zotero-mcp-server`，并保持 Zotero 运行。 |
+| PaperQA2 / `paper-qa` | 可选 | <https://github.com/Future-House/paper-qa> | 需要在 `.env` 中配置 `PQA_API_KEY`。 |
+| sentence-transformers | 可选 | <https://www.sbert.net/docs/installation.html> | PaperQA2 本地 embedding 使用。 |
 
-## Optional: PaperQA2
+## 可选：PaperQA2
 
-Install:
+安装：
 
 ```bash
 python3 -m pip install --user pipx
@@ -171,45 +179,45 @@ pipx install "paper-qa>=5"
 pipx inject paper-qa sentence-transformers
 ```
 
-Configure:
+配置：
 
 ```bash
 cp .env.example .env
 ```
 
-Edit `.env`:
+编辑 `.env`：
 
 ```bash
 PQA_API_KEY=your-openai-compatible-provider-key
 UNPAYWALL_EMAIL=you@example.com
 ```
 
-Index and ask:
+索引和提问：
 
 ```bash
 ./scripts/index.sh
 ./scripts/consult.sh "What are reliable objective indicators of stress in cats?"
 ```
 
-Default settings are in `settings.json`.
+默认配置在 `settings.json`。
 
-## Optional: Zotero MCP
+## 可选：Zotero MCP
 
-Install:
+安装：
 
 ```bash
 pipx install zotero-mcp-server
 ```
 
-Make sure Zotero 7+ is installed, running, and local API access is enabled.
+确认 Zotero 7+ 已安装、正在运行，并开启本地 API。
 
-If `localhost:23119` fails but `127.0.0.1:23119` works, use the bundled launcher:
+如果 `localhost:23119` 失败但 `127.0.0.1:23119` 正常，可以使用内置启动器：
 
 ```bash
 ~/.local/pipx/venvs/zotero-mcp-server/bin/python scripts/zotero_mcp_local.py serve
 ```
 
-Import the generated RIS into Zotero:
+把生成的 RIS 导入 Zotero：
 
 ```bash
 curl -X POST http://127.0.0.1:23119/connector/import \
@@ -217,17 +225,20 @@ curl -X POST http://127.0.0.1:23119/connector/import \
   --data-binary @literature/cat-behavior.ris
 ```
 
-Repeated imports can create duplicates. Use Zotero's Duplicate Items view or import into a fresh collection.
+重复导入可能产生重复条目。可以使用 Zotero 的 Duplicate Items 视图合并，或导入到新 collection。
 
-## Repository Structure
+## 仓库结构
 
 ```text
 cat-behavior-vet-skill/
 ├── SKILL.md
 ├── README.md
-├── README.zh-CN.md
+├── README.en.md
 ├── LICENSE
 ├── settings.json
+├── assets/
+│   ├── hero-zh-CN.png
+│   └── example-window-redirected-consult-zh-CN.png
 ├── examples/
 │   ├── window-redirected-aggression/
 │   └── vet-visit-stress/
@@ -244,34 +255,34 @@ cat-behavior-vet-skill/
     └── zotero_mcp_local.py
 ```
 
-## Data and Copyright
+## 数据和版权
 
-This repository includes skill instructions, scripts, configuration templates, and public provenance metadata.
+仓库只包含 skill 指令、脚本、配置模板和公开 provenance 元数据。
 
-It does not include:
+仓库不包含：
 
-- `.env` files or API keys
-- PaperQA2 vector indexes
-- generated abstracts, full text, PDFs, or `manifest.csv`
-- generated RIS files
-- Zotero local libraries, notes, annotations, or attachments
+- `.env` 文件或 API key
+- PaperQA2 向量索引
+- 生成的摘要、全文、PDF 或 `manifest.csv`
+- 生成的 RIS 文件
+- Zotero 本地库、笔记、注释或附件
 
-Paper discovery uses official public services:
+paper discovery 使用官方公开服务：
 
-- PubMed E-utilities: <https://www.ncbi.nlm.nih.gov/books/NBK25501/>
-- Unpaywall API: <https://unpaywall.org/products/api>
-- Europe PMC REST API: <https://europepmc.org/RestfulWebService>
+- PubMed E-utilities：<https://www.ncbi.nlm.nih.gov/books/NBK25501/>
+- Unpaywall API：<https://unpaywall.org/products/api>
+- Europe PMC REST API：<https://europepmc.org/RestfulWebService>
 
-PubMed accessibility does not mean every abstract can be redistributed. Open-access discovery does not mean every PDF has the same license. Generated corpus files should remain local unless redistribution rights are checked item by item.
+PubMed 可访问不等于每篇摘要都可以再分发。开放获取检索结果也不代表每篇 PDF 都有相同许可证。生成的语料默认保留在使用者本机，除非逐篇确认允许再分发。
 
-This project is not affiliated with NCBI, NLM, PubMed, Unpaywall, Europe PMC, Zotero, PaperQA2, DACVB, or ECAWBM.
+本项目与 NCBI、NLM、PubMed、Unpaywall、Europe PMC、Zotero、PaperQA2、DACVB、ECAWBM 均无隶属关系。
 
-## Safety
+## 安全说明
 
-This skill is for education and decision support. It is not a veterinary diagnosis service and does not replace an in-person veterinarian or board-certified veterinary behaviorist.
+这个 skill 用于教育和决策辅助。它不是兽医诊断服务，不能替代线下兽医或 board-certified veterinary behaviorist。
 
-Behavior changes can be caused by pain, disease, medication effects, neurologic issues, or environmental stressors. For injuries, escalating aggression, sudden behavior change, severe distress, or welfare risk, seek in-person veterinary care.
+行为变化可能来自疼痛、疾病、药物影响、神经问题或环境压力。涉及受伤、攻击升级、突然行为变化、严重 distress 或动物福利风险时，应寻求线下兽医帮助。
 
 ## License
 
-[CC BY-NC-ND 4.0](LICENSE): free to share with attribution for non-commercial use. Commercial use and distribution of modified versions require separate permission.
+[CC BY-NC-ND 4.0](LICENSE)：可在非商业场景下署名分享。商业使用和分发修改版本需要另行获得许可。
