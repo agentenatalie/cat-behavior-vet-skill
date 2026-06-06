@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Search the local veterinary-behavior corpus without calling an LLM.
 
-This is the default evidence retrieval path for Native Agent Mode: Claude Code,
-Codex, or another coding agent runs this script, reads the returned snippets,
-and uses its own model to synthesize the answer.
+This is the default evidence retrieval path for Native Skill Mode: the current
+AI runtime runs this script, reads the returned snippets, and uses its own model
+to synthesize the answer.
 """
 from __future__ import annotations
 
@@ -131,10 +131,14 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Search local corpus snippets without an LLM.")
     parser.add_argument("query", help="Evidence question or keyword query")
     parser.add_argument("-n", "--limit", type=int, default=8, help="Number of results to print")
-    parser.add_argument("--root", default=".", help="Repository root. Defaults to current directory")
+    parser.add_argument(
+        "--root",
+        default=None,
+        help="Corpus root. Defaults to the parent directory of this script.",
+    )
     args = parser.parse_args()
 
-    root = Path(args.root).resolve()
+    root = Path(args.root).resolve() if args.root else Path(__file__).resolve().parents[1]
     try:
         results = search(root, args.query, args.limit)
     except FileNotFoundError as exc:

@@ -10,6 +10,10 @@ papers/*
 
 literature/*.ris
 
+skill/veterinary-behaviorist/papers/*
+!skill/veterinary-behaviorist/papers/.gitkeep
+skill/veterinary-behaviorist/literature/*.ris
+
 .DS_Store
 *.log
 

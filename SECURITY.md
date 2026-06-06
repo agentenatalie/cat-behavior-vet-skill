@@ -18,7 +18,7 @@ If you accidentally expose a secret, revoke it first, then open an issue describ
 
 ## Medical Safety
 
-This project is not a veterinary diagnosis service. It is an evidence-retrieval and reasoning aid for agent runtimes.
+This project is not a veterinary diagnosis service. It is an evidence-retrieval and reasoning aid for AI runtimes.
 
 Urgent or high-risk situations should be handled by in-person care:
 

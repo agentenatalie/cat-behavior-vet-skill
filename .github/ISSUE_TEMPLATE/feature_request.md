@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an improvement to retrieval, setup, docs, or agent behavior
+about: Suggest an improvement to retrieval, setup, docs, or skill behavior
 title: "[Feature]: "
 labels: enhancement
 assignees: ""
@@ -16,7 +16,7 @@ What should change?
 
 ## Scope
 
-- [ ] Native Agent workflow
+- [ ] Native Skill workflow
 - [ ] Local retrieval
 - [ ] Corpus generation
 - [ ] Zotero MCP

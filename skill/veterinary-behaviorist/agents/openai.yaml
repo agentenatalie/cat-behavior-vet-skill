@@ -1,0 +1,7 @@
+interface:
+  display_name: "Veterinary Behaviorist"
+  short_description: "Evidence-based cat behavior consults"
+  default_prompt: "Use $veterinary-behaviorist to assess this cat behavior case with intake, literature retrieval, and cited guidance."
+
+policy:
+  allow_implicit_invocation: true

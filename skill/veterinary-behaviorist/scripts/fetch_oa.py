@@ -20,7 +20,7 @@ RIS = os.path.join(ROOT, "literature", "cat-behavior.ris")
 PAPERS = os.path.join(ROOT, "papers")
 MANIFEST = os.path.join(PAPERS, "manifest.csv")
 EMAIL = os.environ.get("UNPAYWALL_EMAIL", "you@example.com")
-UA = "cat-behaviour-vet-agent/1.0 (mailto:%s)" % EMAIL
+UA = "cat-behaviour-veterinary-behaviorist-skill/1.0 (mailto:%s)" % EMAIL
 EPMC = "https://www.ebi.ac.uk/europepmc/webservices/rest"
 
 

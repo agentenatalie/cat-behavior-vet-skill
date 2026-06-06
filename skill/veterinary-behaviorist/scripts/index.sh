@@ -4,7 +4,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$HERE"
 if [ -f .env ]; then set -a; . ./.env; set +a; fi
-PQA_API_KEY="${PQA_API_KEY:-${XIAOMI_API_KEY:-unused-for-indexing}}"
+PQA_API_KEY="${PQA_API_KEY:-${OPENAI_API_KEY:-unused-for-indexing}}"
 export PQA_API_KEY
 export OPENAI_API_KEY="$PQA_API_KEY"
 export PATH="$HOME/.local/bin:$PATH"

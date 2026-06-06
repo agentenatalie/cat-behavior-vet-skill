@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a setup, retrieval, or agent workflow problem
+about: Report a setup, retrieval, or skill workflow problem
 title: "[Bug]: "
 labels: bug
 assignees: ""
@@ -14,8 +14,8 @@ Describe the problem.
 
 - OS:
 - Python version:
-- Agent runtime: Claude Code / Codex / other
-- Mode: Native Agent / PaperQA2 / Zotero MCP
+- AI runtime: Claude Code / Codex / other
+- Mode: Native Skill / PaperQA2 / Zotero MCP
 
 ## Steps to Reproduce
 

@@ -1,7 +1,7 @@
-<h1 align="center">Veterinary Behaviorist Agent</h1>
+<h1 align="center">Veterinary Behaviorist Skill</h1>
 
 <p align="center">
-  Evidence-based cat behavior consults for Claude Code, Codex, and local-first AI agents.
+  A self-contained, evidence-based cat behavior consult skill for Claude Code, Codex, and local-first AI runtimes.
 </p>
 
 <p align="center">
@@ -11,240 +11,77 @@
 <p align="center">
   <a href="LICENSE"><img alt="License: CC BY-NC-ND 4.0" src="https://img.shields.io/badge/License-CC_BY--NC--ND_4.0-lightgrey.svg"></a>
   <a href="https://www.python.org/downloads/"><img alt="Python 3.11+" src="https://img.shields.io/badge/Python-3.11%2B-blue.svg"></a>
-  <a href="#native-agent-mode"><img alt="Local-first mode" src="https://img.shields.io/badge/Mode-local--first-lightgrey.svg"></a>
+  <a href="#native-skill-mode"><img alt="Mode: local-first" src="https://img.shields.io/badge/Mode-local--first-lightgrey.svg"></a>
+  <a href="#data-and-copyright"><img alt="Corpus: local only" src="https://img.shields.io/badge/Corpus-local_only-lightgrey.svg"></a>
 </p>
 
-Evidence-based veterinary behavior agent for cats and companion animals. It is designed for Claude Code, Codex, and other agent runtimes that can read a skill file and run local commands.
+`Veterinary Behaviorist Skill` helps an AI coding assistant handle cat and companion-animal behavior questions as a structured, evidence-based consult. It guides intake, retrieves local veterinary behavior literature, optionally uses Zotero MCP or PaperQA2, checks real-world reports when web access is available, and writes a cited answer.
 
-The default mode uses the current agent itself as the reasoning model. You do not need to connect another LLM API. This repository provides the veterinary behavior prompt, local literature retrieval scripts, corpus generation tooling, and optional Zotero MCP / PaperQA2 integrations.
+The default mode uses the AI runtime you already have. You do not need to connect another LLM API.
 
 ## What This Is
 
-This project is not a standalone chatbot, web app, or hosted API.
-
-It is a **skill-based agent package**:
-
-- `skill/veterinary-behaviorist/SKILL.md` tells Claude Code, Codex, or another compatible agent how to behave as an evidence-based veterinary behavior consult agent.
-- `scripts/search_corpus.py` lets that same agent search local veterinary behavior literature.
-- `literature/` and `scripts/fetch_oa.py` help build the local paper corpus.
-- Web search, when available, lets the agent compare the case against public
-  real-world reports after the scientific literature step.
-- Zotero MCP and PaperQA2 are optional add-ons.
-
-In plain terms: you install this repository as a skill, then your existing Claude Code/Codex session becomes the veterinary behaviorist agent when you explicitly call it.
-
-## What You Get Back
-
-When you call the skill with a case or question, the final output is a **cited veterinary behavior consult**, usually structured like this:
+This repository is the source and distribution package for one self-contained skill:
 
 ```text
-Case summary confirmed with the user
+skill/veterinary-behaviorist/
+```
+
+It is not a standalone chatbot, web app, hosted API, or separate agent service.
+
+Install the skill folder into Claude Code, Codex, or another compatible AI runtime. When you invoke the skill, the current AI assistant reads `SKILL.md`, asks intake questions, runs the bundled scripts, and produces the final consult.
+
+## Agent vs Skill
+
+An **AI agent/runtime** is the assistant you are already using, such as Claude Code or Codex.
+
+A **skill** is a package of instructions, scripts, config, and resources that teaches that assistant a specific workflow.
+
+This project is now a skill, not a separate agent. The current AI assistant becomes the veterinary behavior consultant only while using this skill.
+
+## What You Get
+
+For a full case, the skill produces a cited veterinary behavior consult:
+
+```text
+Confirmed case summary
 Bottom line
 Medical triage
-Most likely behavioral diagnosis and differentials
-Management and safety plan
+Most likely diagnosis and differentials
+Safety and management plan
 Behavior modification plan
 Long-term living strategy
-Scientific evidence and citations
-Real-world reports and practical patterns
+Scientific evidence
+Real-world reports / anecdotal patterns
 Limitations and escalation thresholds
 ```
 
-Example prompt:
+If the case is vague, the skill should not jump to a diagnosis. For example, if the user says:
 
 ```text
-/veterinary-behaviorist
-My 4-year-old neutered indoor cat suddenly attacks my leg after seeing an outdoor cat through the window. What should I do?
+My cat suddenly attacked me.
 ```
 
-Example output shape:
+The AI should first ask for the minimum context: animal profile, medical history, exact incident sequence, injury severity, pattern, triggers, household safety, previous responses, and user constraints. If the answer is incomplete, it should ask again for the missing facts. After enough context is available, it summarizes the case and asks the user to confirm before retrieving evidence and writing the full consult.
 
-- identifies likely redirected aggression vs pain/fear differentials;
-- lists medical red flags that require a veterinarian;
-- gives immediate safety management steps;
-- proposes desensitization/counterconditioning and environmental changes;
-- cites retrieved papers by author/year plus DOI or PMID;
-- summarizes matching real-world reports when web access is available;
-- marks abstract-only evidence and uncertainty.
+Urgent medical or safety risk is handled immediately before the remaining intake continues.
 
-## What It Does
+## Native Skill Mode
 
-- Guides the current agent through a veterinary behavior consult workflow.
-- Retrieves local evidence from a PubMed-derived cat behavior corpus.
-- Supports cat stress, fear, aggression, elimination problems, pain or disease-related behavior change, and clinic handling questions.
-- Encourages medical-first triage before behavioral interpretation.
-- Requires citations from retrieved evidence. No fabricated PMID, DOI, or author-year citations.
-- Supports optional Zotero MCP for local reference libraries, notes, annotations, and PDFs.
-- Supports optional PaperQA2 mode when the user already has an OpenAI-compatible LLM API.
+Native Skill Mode is the default and does not require another LLM API.
 
-## How It Works
+The current AI runtime:
 
-Default Native Agent Mode:
+1. Loads `skill/veterinary-behaviorist/SKILL.md`.
+2. Runs intake and confirms the case summary.
+3. Uses `scripts/search_corpus.py` inside the skill folder to retrieve local evidence.
+4. Optionally searches Zotero MCP if the user has configured Zotero.
+5. Uses web search, when available, to find similar real-world reports after the scientific retrieval step.
+6. Writes the answer with its own model and cites only retrieved sources.
 
-1. The user explicitly calls `/veterinary-behaviorist`.
-2. Claude Code, Codex, or another compatible agent runtime loads `skill/veterinary-behaviorist/SKILL.md`.
-3. The current agent runs an intake gate: it asks for missing case facts and confirms the case summary before giving a full answer.
-4. The current agent runs `scripts/search_corpus.py` to retrieve local evidence snippets.
-5. If Zotero MCP is configured, the current agent can also search the local Zotero library.
-6. If web access is available, the current agent searches for matching real-world cases and outcome patterns.
-7. The current agent writes the final answer using its own model and cites only retrieved sources.
+PaperQA2 is optional. Use it only if you want a separate literature-QA engine and already have an OpenAI-compatible API key.
 
-Optional PaperQA2 mode:
-
-1. The user configures an OpenAI-compatible API key.
-2. PaperQA2 indexes the local corpus.
-3. `scripts/consult.sh` asks PaperQA2 to retrieve and synthesize a cited answer.
-
-## Invocation Flow
-
-There is no separate chat UI in this repository. The agent is invoked through the AI environment where you install the skill.
-
-For Claude Code or Codex:
-
-1. Clone this repository.
-2. Generate the local corpus.
-3. Symlink `skill/veterinary-behaviorist` into your skills directory.
-4. Set `VET_AGENT_HOME` to the repository path.
-5. In a normal Claude Code or Codex session, explicitly say:
-
-```text
-/veterinary-behaviorist
-use the veterinary behaviorist skill for this case
-consult the veterinary behaviorist agent
-```
-
-After that, the current agent should read the skill instructions, ask any missing intake questions, confirm the case summary, run local retrieval commands, optionally search for real-world reports, and answer with citations. The user does not call `search_corpus.py` directly unless they want to test retrieval by hand.
-
-## Do You Need Zotero?
-
-No. Zotero is optional.
-
-The default setup works without Zotero:
-
-- `literature/harvest_pubmed.py` finds candidate papers through PubMed.
-- `scripts/fetch_oa.py` creates local text/PDF corpus files when legally available.
-- `scripts/search_corpus.py` searches those local files.
-- The current agent writes the final answer.
-
-Use Zotero only if you want the agent to access your personal reference library, notes, annotations, or PDFs. Zotero is helpful for researchers who already manage papers there, but it is not required for this project to work.
-
-## How Papers Are Found
-
-Users do not need to manually do Web Research for the default corpus.
-
-The paper discovery flow is scripted:
-
-1. `literature/harvest_pubmed.py` runs predefined PubMed E-utilities queries for feline stress, fear, anxiety, aggression, bites, and related behavior topics.
-2. It writes `literature/cat-behavior.ris` locally.
-3. `scripts/fetch_oa.py` reads that RIS file and tries, in order:
-   - existing local `papers/PMID<pmid>.pdf`
-   - Unpaywall open-access PDF
-   - Europe PMC open-access full-text XML
-   - PubMed abstract text fallback
-4. It writes `papers/manifest.csv`, which tells the retrieval script where each local source file is and how to cite it.
-
-Manual research is only needed when:
-
-- you want to expand the corpus beyond the bundled PubMed query buckets;
-- you have lawful access to a paywalled PDF and want to add it locally;
-- a specific paper is missing and you want to locate its PMID/DOI or a legal full-text source.
-
-To add legally obtained PDFs, place them in `papers/` with the PMID filename:
-
-```text
-papers/PMID29099247.pdf
-```
-
-Then refresh:
-
-```bash
-python3 scripts/fetch_oa.py
-```
-
-## Repository Layout
-
-```text
-.
-├── README.md
-├── README.zh-CN.md
-├── .env.example
-├── .gitignore
-├── settings.json
-├── literature/
-│   ├── README.md
-│   ├── harvest_pubmed.py
-│   └── cat-behavior.provenance.json
-├── papers/
-│   └── .gitkeep
-├── scripts/
-│   ├── search_corpus.py
-│   ├── consult.sh
-│   ├── fetch_oa.py
-│   ├── index.sh
-│   └── zotero_mcp_local.py
-└── skill/
-    └── veterinary-behaviorist/
-        └── SKILL.md
-```
-
-Local corpus files are generated after setup:
-
-```text
-literature/cat-behavior.ris
-papers/PMID*.abstract.txt
-papers/PMID*.fulltext.txt
-papers/PMID*.pdf
-papers/manifest.csv
-.pqa_index/
-```
-
-These files are for local retrieval and are not shipped with the repository.
-
-## Data Policy
-
-This repository does not include article full text, article abstracts, Zotero attachments, or Zotero notes.
-
-The corpus is generated locally from:
-
-- PubMed E-utilities: <https://www.ncbi.nlm.nih.gov/books/NBK25501/>
-- Unpaywall API: <https://unpaywall.org/products/api>
-- Europe PMC REST API: <https://europepmc.org/RestfulWebService>
-
-`literature/cat-behavior.provenance.json` stores public bibliographic metadata: PMID, title, year, journal, and query source. Actual retrieval text is generated on the user's machine.
-
-## Attribution and Legal Notes
-
-This section is not legal advice.
-
-This project does not bundle, copy, or redistribute Academic Research Suite / Academic Research Skill files, prompts, workflows, templates, or agent definitions. Its retrieval flow uses general local-first RAG and literature-search patterns, implemented specifically for this veterinary behavior corpus.
-
-The project uses official, public APIs and repositories for paper discovery:
-
-- PubMed records are discovered through NCBI E-utilities. NCBI's copyright guidance notes that NLM data include U.S. Government works and may also include abstracts from publications that can be protected by U.S. or non-U.S. copyright law. Users should follow NLM's copyright and disclaimer guidance: <https://www.nlm.nih.gov/databases/download.html> and <https://www.ncbi.nlm.nih.gov/books/NBK25497/>.
-- Unpaywall is used only to discover open-access locations and requires a contact email in API requests: <https://unpaywall.org/products/api>.
-- Europe PMC is used for open-access full-text XML when available: <https://europepmc.org/RestfulWebService>.
-
-Generated abstracts, full text, PDFs, Zotero libraries, notes, annotations, and PaperQA2 indexes stay local. They are not redistributed by this repository.
-
-This repository is not affiliated with NCBI, NLM, PubMed, Unpaywall, Europe PMC, Zotero, PaperQA2, DACVB, or ECAWBM.
-
-## Requirements
-
-Default Native Agent Mode:
-
-- Python 3.11+
-- Claude Code, Codex, or another agent environment that can read local instructions and run shell commands
-
-Optional integrations:
-
-- Zotero 7+: <https://www.zotero.org/download/>
-- Zotero MCP server: <https://pypi.org/project/zotero-mcp-server/>
-- pipx: <https://pipx.pypa.io/stable/installation/>
-- PaperQA2 / `paper-qa`: <https://github.com/Future-House/paper-qa>
-- sentence-transformers: <https://www.sbert.net/docs/installation.html>
-- LiteLLM provider configuration: <https://docs.litellm.ai/docs/providers>
-
-## Quick Start
+## Install
 
 Clone the repository:
 
@@ -253,207 +90,122 @@ git clone https://github.com/agentenatalie/cat-behavior-vet-agent.git
 cd cat-behavior-vet-agent
 ```
 
-Generate the local literature corpus:
-
-```bash
-cd literature
-NCBI_EMAIL=you@example.com python3 harvest_pubmed.py
-cd ..
-UNPAYWALL_EMAIL=you@example.com python3 scripts/fetch_oa.py
-```
-
-Test local retrieval:
-
-```bash
-python3 scripts/search_corpus.py "owner-directed aggression in cats" -n 5
-python3 scripts/search_corpus.py "猫突然攻击主人，疼痛和 redirected aggression 怎么区分?" -n 5
-```
-
-## Install as a Claude Code or Codex Skill
-
-Codex:
+Install as a Codex skill:
 
 ```bash
 mkdir -p ~/.codex/skills
-ln -s /path/to/cat-behavior-vet-agent/skill/veterinary-behaviorist ~/.codex/skills/veterinary-behaviorist
+ln -s "$(pwd)/skill/veterinary-behaviorist" ~/.codex/skills/veterinary-behaviorist
 ```
 
-Claude Code:
+Install as a Claude Code skill:
 
 ```bash
 mkdir -p ~/.claude/skills
-ln -s /path/to/cat-behavior-vet-agent/skill/veterinary-behaviorist ~/.claude/skills/veterinary-behaviorist
+ln -s "$(pwd)/skill/veterinary-behaviorist" ~/.claude/skills/veterinary-behaviorist
 ```
 
-Set the repository path:
+You can also copy only the skill folder:
 
 ```bash
-export VET_AGENT_HOME=/path/to/cat-behavior-vet-agent
+cp -R skill/veterinary-behaviorist ~/.codex/skills/veterinary-behaviorist
 ```
 
-Put that line in your shell profile or configure the same environment variable in your agent runtime.
+Use a symlink if you want repository updates to affect the installed skill immediately.
 
-Call the skill explicitly:
+## Call the Skill
+
+Invocation syntax depends on the AI runtime. Use the skill name explicitly:
+
+```text
+Use $veterinary-behaviorist to assess this case.
+```
+
+or:
 
 ```text
 /veterinary-behaviorist
-use the veterinary behaviorist skill for this case
-consult the veterinary behaviorist agent
-用兽医行为 skill 看一下这个 case
+My 4-year-old neutered indoor cat suddenly attacks my leg after seeing an outdoor cat through the window. What should I do?
 ```
 
-The skill is off by default. The current agent should not activate it just because a conversation mentions cats, dogs, behavior, aggression, stress, or anxiety.
+The user does not need to run `search_corpus.py` by hand during normal use. The current AI assistant should run the bundled retrieval commands after intake is complete.
 
-## Native Agent Mode
+## Generate the Local Literature Corpus
 
-Native Agent Mode is the default. It does not require an additional LLM API.
-
-The current agent retrieves local evidence:
+The public repository does not include article abstracts, article full text, PDFs, RIS files, or vector indexes. Generate them locally:
 
 ```bash
-cd "$VET_AGENT_HOME"
-python3 scripts/search_corpus.py "objective indicators of stress in cats" -n 10
-python3 scripts/search_corpus.py "cat owner-directed aggression treatment" -n 10
-```
-
-`search_corpus.py` returns:
-
-- Title and year
-- DOI or PMID
-- Corpus source
-- Citation
-- Matching snippet
-
-The current agent then uses its own model to produce the consult answer.
-
-## Intake Before Answering
-
-The agent should not produce a full behavioral diagnosis from a vague prompt.
-
-If the user says something like "my cat suddenly attacked me", the agent first asks for the minimum case context:
-
-- animal profile: age, sex/neuter status, indoor/outdoor, time in the home;
-- medical context: pain signs, appetite/drinking/litter changes, medications, recent illness, recent vet visit;
-- incident details: what happened before/during/after, target, body language, bite/scratch severity;
-- pattern: first episode or repeated, frequency, escalation, recovery time;
-- triggers and environment: window animals, petting, play, food, visitors, other pets, resource layout, recent changes;
-- household safety: children, vulnerable adults, other animals, ability to separate safely;
-- previous responses: what helped, what made it worse;
-- user goals and constraints.
-
-If the answer is incomplete, the agent asks follow-up questions instead of moving on. Once enough information is available, it summarizes the case and asks the user to confirm. Only after that confirmation does it retrieve evidence and write the full consult.
-
-Urgent safety or medical risks are handled immediately, before the rest of the intake.
-
-### Example conversation flow
-
-User:
-
-```text
-/veterinary-behaviorist
-My cat suddenly attacked me.
-```
-
-Agent:
-
-```text
-Before I can give a reliable behavior assessment, I need the case context. Please answer these first:
-1. Age, sex/neuter status, indoor/outdoor?
-2. What happened in the 5 minutes before the attack?
-3. Bite or scratch? Was skin broken?
-4. Any pain signs, appetite/litter changes, illness, or medication?
-5. First episode or repeated? Any recent household changes?
-```
-
-If the user answers only some questions, the agent asks for the missing critical facts. When enough context is present, it summarizes:
-
-```text
-Here is what I understand: ...
-Is this accurate, and is there anything important missing?
-```
-
-Only after the user confirms does the agent retrieve literature, optionally search real-world reports, and write the consult.
-
-## Real-World Web Corroboration
-
-Scientific evidence remains the primary source. When web access is available, the agent also searches for public real-world cases that resemble the user's situation.
-
-The goal is to understand implementation patterns:
-
-- what similar owners or clinicians tried;
-- what appeared to help;
-- what failed or escalated the problem;
-- whether the case truly matches the user's context.
-
-These reports are labeled as anecdotal. They must not override veterinary literature, medical triage, or safety rules. Unsafe advice from forums, such as punishment, dominance framing, or flooding, should be rejected.
-
-## Behavior Contract for Current Agents
-
-When the skill is activated, the current agent should:
-
-1. Ask intake questions until the critical case context is available.
-2. Summarize the case and ask the user to confirm before a full answer.
-3. Start with medical-first triage: pain, skin disease, urinary disease, endocrine disease, neurologic disease, medication effects, cognitive decline.
-4. Retrieve scientific evidence with `scripts/search_corpus.py`.
-5. Use Zotero MCP if available and relevant.
-6. Use web search, when available, to find matching real-world cases and outcome patterns.
-7. Classify aggression by motivation: fear/defensive, redirected, petting-induced, play, pain, territorial, predatory, or other supported categories.
-8. Provide management, environmental modification, behavior modification, safety thresholds, and referral triggers.
-9. Cite only retrieved evidence from local search, Zotero, PaperQA2, or linked web sources.
-10. Keep scientific evidence and anecdotal real-world reports clearly separated.
-11. State uncertainty when evidence is abstract-only, weak, extrapolated, anecdotal, or missing.
-
-Suggested answer format:
-
-```text
-Bottom line
-Medical triage
-Most likely diagnosis and differentials
-Plan
-Long-term living strategy
-Scientific evidence
-Real-world reports
-Limitations and escalation thresholds
-```
-
-## Generate or Refresh the Corpus
-
-Generate PubMed RIS data:
-
-```bash
-cd /path/to/cat-behavior-vet-agent/literature
-NCBI_EMAIL=you@example.com python3 harvest_pubmed.py
-```
-
-Fetch open-access full text when available and create `papers/manifest.csv`:
-
-```bash
-cd /path/to/cat-behavior-vet-agent
+cd skill/veterinary-behaviorist
+NCBI_EMAIL=you@example.com python3 literature/harvest_pubmed.py
 UNPAYWALL_EMAIL=you@example.com python3 scripts/fetch_oa.py
 ```
 
-Fetch strategy:
-
-1. Use an existing local `papers/PMID<pmid>.pdf` if present.
-2. Try Unpaywall open-access PDF.
-3. Try Europe PMC open-access full-text XML and convert it to text.
-4. Use PubMed abstract text when no full text is available.
-
-If you have lawful access to a PDF, place it in `papers/`:
-
-```text
-papers/PMID29099247.pdf
-```
-
-Then refresh the manifest:
+Test retrieval:
 
 ```bash
+python3 scripts/search_corpus.py "owner-directed aggression in cats" -n 5
+python3 scripts/search_corpus.py "cat redirected aggression outdoor cat window" -n 5
+```
+
+Generated local files:
+
+```text
+skill/veterinary-behaviorist/literature/cat-behavior.ris
+skill/veterinary-behaviorist/papers/PMID*.abstract.txt
+skill/veterinary-behaviorist/papers/PMID*.fulltext.txt
+skill/veterinary-behaviorist/papers/PMID*.pdf
+skill/veterinary-behaviorist/papers/manifest.csv
+skill/veterinary-behaviorist/.pqa_index/
+```
+
+These files stay local and are ignored by Git.
+
+## How Papers Are Found
+
+Users do not need to manually do web research to build the default corpus.
+
+The skill uses a scripted discovery flow:
+
+1. `literature/harvest_pubmed.py` runs predefined PubMed E-utilities searches for feline stress, fear, anxiety, aggression, bites, and related behavior topics.
+2. It writes `literature/cat-behavior.ris` locally.
+3. `scripts/fetch_oa.py` reads the RIS file and tries, in order:
+   - existing local `papers/PMID<pmid>.pdf`
+   - Unpaywall open-access PDF
+   - Europe PMC open-access full-text XML
+   - PubMed abstract text fallback
+4. It writes `papers/manifest.csv`, which local search uses for file paths and citations.
+
+Manual research is useful only when you want to expand the corpus, add a specific lawful PDF, or locate a missing PMID/DOI.
+
+If you have lawful access to a paper, place it in the local skill corpus with its PMID filename:
+
+```text
+skill/veterinary-behaviorist/papers/PMID29099247.pdf
+```
+
+Then refresh:
+
+```bash
+cd skill/veterinary-behaviorist
 python3 scripts/fetch_oa.py
 ```
 
-## Optional: PaperQA2 Mode
+## Component Setup
 
-PaperQA2 mode lets `pqa` retrieve and synthesize cited answers. Use it when you already have an OpenAI-compatible LLM API.
+| Component | Required? | Install / download | Configuration |
+| --- | --- | --- | --- |
+| Python 3.11+ | Yes | <https://www.python.org/downloads/> | Used by all bundled scripts. |
+| PubMed E-utilities | Yes for corpus generation | <https://www.ncbi.nlm.nih.gov/books/NBK25501/> | Set `NCBI_EMAIL=you@example.com` when running `harvest_pubmed.py`. |
+| Unpaywall API | Yes for OA lookup | <https://unpaywall.org/products/api> | Set `UNPAYWALL_EMAIL=you@example.com` when running `fetch_oa.py`. |
+| Europe PMC REST API | Used automatically | <https://europepmc.org/RestfulWebService> | No key required for the current script. |
+| Zotero 7+ | Optional | <https://www.zotero.org/download/> | Install only if you want the AI to use your local Zotero library, notes, annotations, or PDFs. |
+| Zotero MCP server | Optional | <https://pypi.org/project/zotero-mcp-server/> | Install with `pipx install zotero-mcp-server`; keep Zotero running with local API access enabled. |
+| PaperQA2 / `paper-qa` | Optional | <https://github.com/Future-House/paper-qa> | Requires an OpenAI-compatible API key in `.env`. |
+| pipx | Optional | <https://pipx.pypa.io/stable/installation/> | Convenient for installing PaperQA2 and Zotero MCP. |
+| sentence-transformers | Optional | <https://www.sbert.net/docs/installation.html> | Inject into PaperQA2 if using local embeddings. |
+| LiteLLM provider config | Optional | <https://docs.litellm.ai/docs/providers> | Edit `settings.json` if using a different PaperQA2 model/provider. |
+| Web access | Optional | Depends on your AI runtime | Used after scientific retrieval to find similar public real-world cases. |
+
+## Optional: PaperQA2
 
 Install:
 
@@ -467,6 +219,7 @@ pipx inject paper-qa sentence-transformers
 Configure:
 
 ```bash
+cd skill/veterinary-behaviorist
 cp .env.example .env
 ```
 
@@ -477,24 +230,18 @@ PQA_API_KEY=your-openai-compatible-provider-key
 UNPAYWALL_EMAIL=you@example.com
 ```
 
-Index:
+Index and ask:
 
 ```bash
-cd /path/to/cat-behavior-vet-agent
 ./scripts/index.sh
-```
-
-Ask:
-
-```bash
 ./scripts/consult.sh "What are reliable objective indicators of stress in cats?"
 ```
 
-Default PaperQA2 settings are in `settings.json`. The default model is `mimo-v2.5-pro` through an OpenAI-compatible endpoint. To use another provider, update `llm`, `summary_llm`, model names, model IDs, and API base values in `settings.json`. Keep `api_key` as `os.environ/PQA_API_KEY`.
+Default PaperQA2 settings live in `skill/veterinary-behaviorist/settings.json`. Change `llm`, `summary_llm`, model IDs, API base, and provider settings there if needed. Keep `api_key` as `os.environ/PQA_API_KEY`.
 
 ## Optional: Zotero MCP
 
-Zotero MCP lets the current agent search a local Zotero library, read metadata, inspect full text, and use notes or annotations.
+Zotero is not required. Use it only if you already manage papers in Zotero or want the AI to search your local library.
 
 Install:
 
@@ -504,40 +251,93 @@ pipx install zotero-mcp-server
 
 Make sure Zotero 7+ is installed, running, and local API access is enabled.
 
-If `localhost:23119` fails but `127.0.0.1:23119` works, use the launcher:
+If `localhost:23119` fails but `127.0.0.1:23119` works, use the bundled launcher:
 
 ```bash
-~/.local/pipx/venvs/zotero-mcp-server/bin/python /path/to/cat-behavior-vet-agent/scripts/zotero_mcp_local.py serve
+~/.local/pipx/venvs/zotero-mcp-server/bin/python skill/veterinary-behaviorist/scripts/zotero_mcp_local.py serve
 ```
 
-Import the generated RIS file into Zotero:
+Import the generated RIS into Zotero:
 
 ```bash
-cd /path/to/cat-behavior-vet-agent
+cd skill/veterinary-behaviorist
 curl -X POST http://127.0.0.1:23119/connector/import \
   -H "Content-Type: application/x-research-info-systems" \
   --data-binary @literature/cat-behavior.ris
 ```
 
-Repeated imports can create duplicate Zotero items. Use Zotero's Duplicate Items view or import into a fresh collection.
+Repeated imports can create duplicates. Use Zotero's Duplicate Items view or import into a fresh collection.
 
-## FAQ
+## Real-World Web Corroboration
 
-### Do I need another LLM API?
+Web search is not the default way to find papers. It is a second-stage consult step.
 
-No. The default Native Agent Mode uses Claude Code, Codex, or your current agent runtime as the reasoning model.
+After intake and scientific retrieval, the AI may search public web sources for similar real-world cases and outcomes. These reports help identify practical implementation patterns, such as what similar owners tried, what helped, what failed, and whether the case context really matches.
 
-### Why is there a PaperQA2 configuration?
+Real-world reports must be labeled anecdotal. They do not override veterinary literature, medical triage, or safety rules.
 
-PaperQA2 is an optional mode for users who want a separate literature-QA engine and already have an OpenAI-compatible API key.
+## Repository Layout
 
-### Why are papers not included?
+```text
+.
+├── README.md
+├── README.zh-CN.md
+├── LICENSE
+├── CONTRIBUTING.md
+├── SECURITY.md
+└── skill/
+    └── veterinary-behaviorist/
+        ├── SKILL.md
+        ├── .env.example
+        ├── settings.json
+        ├── agents/
+        │   └── openai.yaml
+        ├── literature/
+        │   ├── harvest_pubmed.py
+        │   └── cat-behavior.provenance.json
+        ├── papers/
+        │   └── .gitkeep
+        └── scripts/
+            ├── search_corpus.py
+            ├── fetch_oa.py
+            ├── consult.sh
+            ├── index.sh
+            └── zotero_mcp_local.py
+```
 
-Article abstracts, full text, and PDFs can have different redistribution rights. The repository includes reproducible retrieval scripts and public provenance metadata instead.
+## Data and Copyright
 
-### Is this a veterinary diagnosis service?
+This repository includes only skill instructions, scripts, configuration templates, and public provenance metadata.
 
-No. It is an evidence-retrieval and reasoning aid. It cannot replace an in-person veterinarian or a board-certified veterinary behaviorist.
+It does not include:
+
+- `.env` files or API keys
+- PaperQA2 vector indexes
+- generated abstracts, full text, PDFs, or `manifest.csv`
+- generated RIS files
+- Zotero local libraries, notes, annotations, or attachments
+
+Paper discovery uses official public services:
+
+- PubMed E-utilities: <https://www.ncbi.nlm.nih.gov/books/NBK25501/>
+- Unpaywall API: <https://unpaywall.org/products/api>
+- Europe PMC REST API: <https://europepmc.org/RestfulWebService>
+
+PubMed accessibility does not mean every abstract can be redistributed. Open-access discovery does not mean every PDF has the same license. Generated corpus files stay on the user's machine unless each item has been separately checked for redistribution rights.
+
+## Attribution
+
+This project does not bundle, copy, or redistribute Academic Research Suite / Academic Research Skill files, prompts, templates, or agent definitions.
+
+It uses a general local-first research pattern: scripted discovery, local corpus generation, local retrieval, optional reference-manager integration, and cited synthesis by the current AI runtime. The implementation and veterinary behavior workflow in this repository are specific to this skill.
+
+This project is not affiliated with NCBI, NLM, PubMed, Unpaywall, Europe PMC, Zotero, PaperQA2, DACVB, or ECAWBM.
+
+## Safety
+
+This skill is for education and decision support. It is not a veterinary diagnosis service and does not replace an in-person veterinarian or board-certified veterinary behaviorist.
+
+Behavior changes can be caused by pain, disease, medication effects, neurologic issues, or environmental stressors. For injuries, escalating aggression, sudden behavior change, severe distress, or welfare risk, seek in-person veterinary care.
 
 ## Contributing
 
@@ -545,15 +345,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Useful contribution areas:
 
-- Better PubMed query buckets
-- Higher-quality retrieval ranking
-- Additional species or behavior domains
-- More robust Zotero MCP setup docs
-- Tests for corpus generation and local search
-
-## Safety and Medical Disclaimer
-
-This project is for educational and decision-support use. Behavior changes can be caused by pain, disease, medication effects, or environmental stressors. For injuries, escalating aggression, sudden behavior change, or welfare risk, seek in-person veterinary care.
+- better PubMed query buckets
+- better local retrieval ranking
+- additional species or behavior domains
+- stronger Zotero MCP setup docs
+- tests for corpus generation and local search
 
 ## License
 

@@ -1,16 +1,15 @@
 {
-  "llm": "mimo-v2.5-pro",
-  "summary_llm": "mimo-v2.5-pro",
+  "llm": "gpt-4o-mini",
+  "summary_llm": "gpt-4o-mini",
   "embedding": "st-multi-qa-MiniLM-L6-cos-v1",
   "temperature": 0.1,
   "verbosity": 1,
   "llm_config": {
     "model_list": [
       {
-        "model_name": "mimo-v2.5-pro",
+        "model_name": "gpt-4o-mini",
         "litellm_params": {
-          "model": "openai/mimo-v2.5-pro",
-          "api_base": "https://token-plan-sgp.xiaomimimo.com/v1",
+          "model": "gpt-4o-mini",
           "api_key": "os.environ/PQA_API_KEY"
         }
       }
@@ -19,10 +18,9 @@
   "summary_llm_config": {
     "model_list": [
       {
-        "model_name": "mimo-v2.5-pro",
+        "model_name": "gpt-4o-mini",
         "litellm_params": {
-          "model": "openai/mimo-v2.5-pro",
-          "api_base": "https://token-plan-sgp.xiaomimimo.com/v1",
+          "model": "gpt-4o-mini",
           "api_key": "os.environ/PQA_API_KEY"
         }
       }

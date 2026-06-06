@@ -12,6 +12,9 @@ import urllib.parse
 import urllib.request
 
 EUTILS = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+HERE = os.path.dirname(os.path.abspath(__file__))
+RIS_PATH = os.path.join(HERE, "cat-behavior.ris")
+PROVENANCE_PATH = os.path.join(HERE, "cat-behavior.provenance.json")
 # Focus: cat STRESS behaviour + AGGRESSION toward humans. (query, quota), relevance-sorted.
 BUCKETS = [
     # 应激行为 / stress response, fear, anxiety, cortisol
@@ -171,7 +174,7 @@ def main():
     recs = parse_medline_blocks(medline)
     print(f"parsed {len(recs)} MEDLINE records", file=sys.stderr)
     ris_blocks = [to_ris(r) for r in recs]
-    with open("cat-behavior.ris", "w", encoding="utf-8") as f:
+    with open(RIS_PATH, "w", encoding="utf-8") as f:
         f.write("\r\n\r\n".join(ris_blocks) + "\r\n")
     # provenance
     prov = [{
@@ -181,12 +184,12 @@ def main():
                  if re.match(r"(\d{4})", (r.get("DP") or [""])[0]) else None,
         "journal": (r.get("JT") or r.get("TA") or [None])[0],
     } for r in recs]
-    with open("cat-behavior.provenance.json", "w", encoding="utf-8") as f:
+    with open(PROVENANCE_PATH, "w", encoding="utf-8") as f:
         json.dump({"queries": [b[0] for b in BUCKETS], "source": "PubMed E-utilities",
                    "focus": "cat stress behaviour + aggression toward humans",
                    "retrieved": time.strftime("%Y-%m-%d"), "count": len(recs),
                    "records": prov}, f, ensure_ascii=False, indent=2)
-    print(f"wrote cat-behavior.ris with {len(ris_blocks)} records", file=sys.stderr)
+    print(f"wrote {RIS_PATH} with {len(ris_blocks)} records", file=sys.stderr)
 
 
 if __name__ == "__main__":
