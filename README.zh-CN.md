@@ -18,6 +18,50 @@
 
 默认模式是 **原生 Agent 模式**：Claude Code/Codex 自己就是推理模型，不需要额外接入另一个 LLM API。本仓库提供兽医行为专科 prompt、本地文献检索脚本、语料生成工具，以及可选的 Zotero MCP / PaperQA2 集成。
 
+## 这到底是什么？
+
+它不是一个独立聊天网页、Web app 或托管 API。
+
+它是一个 **skill-based agent package**：
+
+- `skill/veterinary-behaviorist/SKILL.md` 告诉 Claude Code、Codex 或其他兼容 agent：被调用后要如何扮演一个循证兽医行为 consult agent。
+- `scripts/search_corpus.py` 让同一个 agent 检索本地兽医行为文献。
+- `literature/` 和 `scripts/fetch_oa.py` 用来生成本地 paper 语料。
+- Zotero MCP 和 PaperQA2 是可选增强。
+
+简单说：你把这个仓库安装成 skill。之后在 Claude Code/Codex 里显式调用它，你当前的 Claude Code/Codex 会临时变成这个兽医行为 agent。
+
+## 最后会生成什么？
+
+你用一个 case 或问题调用 skill 后，最后得到的是一份 **带引用的兽医行为 consult 报告**，通常包括：
+
+```text
+结论
+医学优先分诊
+最可能的行为诊断和鉴别诊断
+管理和安全方案
+行为改变方案
+长期相处策略
+证据和引用
+局限和升级条件
+```
+
+调用示例：
+
+```text
+/veterinary-behaviorist
+我家 4 岁已绝育室内猫看到窗外野猫后突然攻击我的腿，应该怎么办？
+```
+
+输出大概会：
+
+- 判断更像 redirected aggression，还是疼痛/恐惧等鉴别方向；
+- 列出需要线下兽医检查的医学 red flags；
+- 给出即时安全管理措施；
+- 给出 desensitization/counterconditioning 和环境调整方案；
+- 用作者年份 + DOI 或 PMID 引用检索到的文献；
+- 标明哪些证据只有摘要、哪些地方不确定。
+
 ## 它能做什么
 
 - 引导当前 agent 按兽医行为 consult 流程工作。
@@ -28,7 +72,7 @@
 - 可选接入 Zotero MCP，读取本地文献库、笔记、注释和 PDF。
 - 可选接入 PaperQA2，适合已经有 OpenAI-compatible LLM API 的用户。
 
-## 架构
+## 工作方式
 
 默认原生 Agent 模式：
 
@@ -44,7 +88,7 @@
 2. PaperQA2 索引本地语料。
 3. `scripts/consult.sh` 调用 PaperQA2 检索并生成带引用的回答。
 
-## 调用方式
+## 调用流程
 
 这个仓库本身没有单独的聊天界面。它是通过你安装 skill 的 AI 环境来调用的。
 

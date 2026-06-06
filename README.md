@@ -18,6 +18,50 @@ Evidence-based veterinary behavior agent for cats and companion animals. It is d
 
 The default mode uses the current agent itself as the reasoning model. You do not need to connect another LLM API. This repository provides the veterinary behavior prompt, local literature retrieval scripts, corpus generation tooling, and optional Zotero MCP / PaperQA2 integrations.
 
+## What This Is
+
+This project is not a standalone chatbot, web app, or hosted API.
+
+It is a **skill-based agent package**:
+
+- `skill/veterinary-behaviorist/SKILL.md` tells Claude Code, Codex, or another compatible agent how to behave as an evidence-based veterinary behavior consult agent.
+- `scripts/search_corpus.py` lets that same agent search local veterinary behavior literature.
+- `literature/` and `scripts/fetch_oa.py` help build the local paper corpus.
+- Zotero MCP and PaperQA2 are optional add-ons.
+
+In plain terms: you install this repository as a skill, then your existing Claude Code/Codex session becomes the veterinary behaviorist agent when you explicitly call it.
+
+## What You Get Back
+
+When you call the skill with a case or question, the final output is a **cited veterinary behavior consult**, usually structured like this:
+
+```text
+Bottom line
+Medical triage
+Most likely behavioral diagnosis and differentials
+Management and safety plan
+Behavior modification plan
+Long-term living strategy
+Evidence and citations
+Limitations and escalation thresholds
+```
+
+Example prompt:
+
+```text
+/veterinary-behaviorist
+My 4-year-old neutered indoor cat suddenly attacks my leg after seeing an outdoor cat through the window. What should I do?
+```
+
+Example output shape:
+
+- identifies likely redirected aggression vs pain/fear differentials;
+- lists medical red flags that require a veterinarian;
+- gives immediate safety management steps;
+- proposes desensitization/counterconditioning and environmental changes;
+- cites retrieved papers by author/year plus DOI or PMID;
+- marks abstract-only evidence and uncertainty.
+
 ## What It Does
 
 - Guides the current agent through a veterinary behavior consult workflow.
@@ -28,7 +72,7 @@ The default mode uses the current agent itself as the reasoning model. You do no
 - Supports optional Zotero MCP for local reference libraries, notes, annotations, and PDFs.
 - Supports optional PaperQA2 mode when the user already has an OpenAI-compatible LLM API.
 
-## Architecture
+## How It Works
 
 Default Native Agent Mode:
 
@@ -44,7 +88,7 @@ Optional PaperQA2 mode:
 2. PaperQA2 indexes the local corpus.
 3. `scripts/consult.sh` asks PaperQA2 to retrieve and synthesize a cited answer.
 
-## How Invocation Works
+## Invocation Flow
 
 There is no separate chat UI in this repository. The agent is invoked through the AI environment where you install the skill.
 
