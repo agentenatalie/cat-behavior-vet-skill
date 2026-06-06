@@ -1,7 +1,0 @@
-interface:
-  display_name: "Cat Behavior Vet"
-  short_description: "Evidence-based cat behavior consults"
-  default_prompt: "Use $cat-behavior-vet to assess this cat behavior case with intake, literature retrieval, and cited guidance."
-
-policy:
-  allow_implicit_invocation: true

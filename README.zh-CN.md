@@ -9,7 +9,7 @@
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-Standard-green)](https://agentskills.io)
 [![Corpus](https://img.shields.io/badge/Corpus-local_only-lightgrey.svg)](#数据和版权)
 
-[它能做什么](#它能做什么) · [怎么用](#怎么用) · [安装](#安装) · [语料生成](#语料生成) · [可选集成](#可选集成) · [数据和版权](#数据和版权)
+[它能做什么](#它能做什么) · [怎么用](#怎么用) · [示例](#示例) · [安装](#安装) · [语料生成](#语料生成) · [可选集成](#可选集成) · [数据和版权](#数据和版权)
 
 </div>
 
@@ -52,6 +52,17 @@ Use $cat-behavior-vet to assess this case:
 3. 检索本地科学文献。
 4. 有 web access 时，搜索相似公开真实案例。
 5. 输出带引用的 consult：医学分诊、行为评估、处理方案、证据、局限和升级条件。
+
+## 示例
+
+[`examples/`](examples/) 里有虚构 case 和缩短版 consult 示例：
+
+| 示例 | 重点 | 文件 |
+| --- | --- | --- |
+| [窗外猫触发攻击](examples/window-redirected-aggression/) | 看到窗外猫后的转嫁攻击 | case prompt + sample consult |
+| [就诊压力](examples/vet-visit-stress/) | 猫包、乘车和诊所压力 | case prompt + sample consult |
+
+示例不包含论文摘要正文、全文、PDF、私人 case 信息或 Zotero 内容。
 
 ## 安装
 
@@ -215,8 +226,9 @@ cat-behavior-vet-skill/
 ├── README.zh-CN.md
 ├── LICENSE
 ├── settings.json
-├── agents/
-│   └── openai.yaml
+├── examples/
+│   ├── window-redirected-aggression/
+│   └── vet-visit-stress/
 ├── literature/
 │   ├── harvest_pubmed.py
 │   └── cat-behavior.provenance.json
@@ -249,10 +261,6 @@ paper discovery 使用官方公开服务：
 - Europe PMC REST API：<https://europepmc.org/RestfulWebService>
 
 PubMed 可访问不等于每篇摘要都可以再分发。开放获取检索结果也不代表每篇 PDF 都有相同许可证。生成的语料默认保留在使用者本机，除非逐篇确认允许再分发。
-
-## Attribution
-
-本项目没有捆绑、复制或再分发 Academic Research Suite / Academic Research Skill 的文件、prompt、template 或 agent definition。
 
 本项目与 NCBI、NLM、PubMed、Unpaywall、Europe PMC、Zotero、PaperQA2、DACVB、ECAWBM 均无隶属关系。
 

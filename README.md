@@ -9,7 +9,7 @@
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-Standard-green)](https://agentskills.io)
 [![Corpus](https://img.shields.io/badge/Corpus-local_only-lightgrey.svg)](#data-and-copyright)
 
-[What It Does](#what-it-does) · [How To Use](#how-to-use) · [Installation](#installation) · [Corpus Setup](#corpus-setup) · [Integrations](#integrations) · [Data & Copyright](#data-and-copyright)
+[What It Does](#what-it-does) · [How To Use](#how-to-use) · [Examples](#examples) · [Installation](#installation) · [Corpus Setup](#corpus-setup) · [Integrations](#integrations) · [Data & Copyright](#data-and-copyright)
 
 </div>
 
@@ -52,6 +52,17 @@ Expected flow:
 3. Retrieve local scientific evidence.
 4. Search similar public real-world reports when web access is available.
 5. Produce a cited consult with medical triage, behavior assessment, plan, evidence, limitations, and escalation thresholds.
+
+## Examples
+
+The [`examples/`](examples/) folder contains fictional sample cases and shortened consult outputs:
+
+| Example | Focus | Files |
+| --- | --- | --- |
+| [Window-triggered aggression](examples/window-redirected-aggression/) | Redirected aggression after seeing an outdoor cat | Case prompt + sample consult |
+| [Vet visit stress](examples/vet-visit-stress/) | Carrier, car, and clinic stress | Case prompt + sample consult |
+
+Examples do not include article abstracts, full text, PDFs, private case data, or Zotero content.
 
 ## Installation
 
@@ -215,8 +226,9 @@ cat-behavior-vet-skill/
 ├── README.zh-CN.md
 ├── LICENSE
 ├── settings.json
-├── agents/
-│   └── openai.yaml
+├── examples/
+│   ├── window-redirected-aggression/
+│   └── vet-visit-stress/
 ├── literature/
 │   ├── harvest_pubmed.py
 │   └── cat-behavior.provenance.json
@@ -249,10 +261,6 @@ Paper discovery uses official public services:
 - Europe PMC REST API: <https://europepmc.org/RestfulWebService>
 
 PubMed accessibility does not mean every abstract can be redistributed. Open-access discovery does not mean every PDF has the same license. Generated corpus files should remain local unless redistribution rights are checked item by item.
-
-## Attribution
-
-This project does not bundle, copy, or redistribute Academic Research Suite / Academic Research Skill files, prompts, templates, or agent definitions.
 
 This project is not affiliated with NCBI, NLM, PubMed, Unpaywall, Europe PMC, Zotero, PaperQA2, DACVB, or ECAWBM.
 
