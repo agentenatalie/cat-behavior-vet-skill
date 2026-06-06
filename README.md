@@ -7,30 +7,13 @@
 - CLI：直接运行 `scripts/consult.sh "问题"`，PaperQA2 检索本地语料并生成带引用回答。
 - Skill：把 `skill/veterinary-behaviorist/SKILL.md` 安装到 Codex 或 Claude Code skills 目录，只有显式调用 `/veterinary-behaviorist` 或同义请求时启用。
 
-## 发布范围和文献版权
+## 文献语料
 
-可以提交到 GitHub：
+仓库不自带论文全文、摘要正文或 Zotero 附件。运行安装步骤后，脚本会从 PubMed、Unpaywall 和 Europe PMC 在本地生成检索语料。
 
-- agent prompt / skill 文件
-- CLI 脚本、PaperQA2 配置、环境变量模板
-- PubMed 查询脚本
-- PubMed provenance 元数据：PMID、标题、年份、期刊、查询来源
+这样做是因为摘要和全文的版权状态因期刊和文章而异，不同使用者也可能有自己的机构权限、Zotero 库和 PDF 来源。
 
-不要提交到 GitHub：
-
-- `.env` 和任何 API key
-- `.pqa_index/` PaperQA2 向量索引
-- `papers/` 下生成的摘要文本、全文文本、PDF、`manifest.csv`
-- `literature/*.ris`
-- Zotero 本地库、笔记、注释、附件
-
-原因：
-
-- PubMed 可访问不等于每篇摘要都允许二次分发。RIS 文件和 `papers/*.abstract.txt` 里会包含摘要正文，所以默认只在本地生成，不提交。
-- Unpaywall / Europe PMC 可找到开放获取全文，但每篇文章的许可不同。PDF 默认只供本地检索使用，除非逐篇确认许可证允许再分发。
-- Zotero 内容属于使用者本地资料库，不能随仓库发布。
-
-当前 `.gitignore` 已按这个边界配置。公开仓库只保留复现语料的脚本和元数据。
+仓库内的 `literature/cat-behavior.provenance.json` 只记录可公开引用的检索元数据：PMID、标题、年份、期刊和查询来源。实际问答语料由使用者在本机生成。
 
 ## 目录结构
 
@@ -56,7 +39,7 @@
         └── SKILL.md
 ```
 
-本地运行后会生成：
+运行后会在本地生成：
 
 ```text
 literature/cat-behavior.ris
@@ -67,7 +50,7 @@ papers/manifest.csv
 .pqa_index/
 ```
 
-这些文件会被 Git 忽略。
+这些文件只供本地检索使用。
 
 ## 组件和下载链接
 
@@ -146,7 +129,7 @@ UNPAYWALL_EMAIL=you@example.com
 
 ## 生成本地文献语料
 
-先用 PubMed E-utilities 生成 RIS。这个步骤会把摘要写入本地 RIS 文件，所以该文件被 Git 忽略。
+先用 PubMed E-utilities 生成 RIS。这个步骤会把摘要写入本地 RIS 文件。
 
 ```bash
 cd /path/to/vet-agent/literature
